@@ -1,0 +1,22 @@
+spec_version: 2
+app_version: "1.0.0"
+app:
+  region: "default"
+  bk_app_code: "{{cookiecutter.project_name}}"
+  bk_app_name: "{{cookiecutter.project_name}}"
+
+modules:
+  backend:
+    is_default: True
+    scripts:
+      pre_release_hook: "bash bin/sync_apigateway.sh"
+    language: Python
+    services:
+      - name: "mysql"
+    processes:
+      web:
+        command: gunicorn wsgi -k gevent -w 8 -b [::]:${PORT:-5000} --max-requests 1024 --timeout 65 --access-logfile - --error-logfile - --access-logformat '[%(h)s] %({request_id}i)s %(u)s %(t)s "%(r)s" %(s)s %(D)s %(b)s "%(f)s" "%(a)s"'
+    env_variables:
+      - key: BK_APIGW_MAINTAINERS
+        value: {{ cookiecutter.init_admin }}
+        description: "网关管理员"

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Gin Demo</title>
+    <link rel="icon" href="static/image/favicon.png" type="image/x-icon" />
+    <style>
+      .hover-grow:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s;
+      }
+    </style>
+  </head>
+  <body class="flex flex-col bg-gray-50 min-h-screen">
+    {{- template "common.header" . }}
+    <main class="flex-grow mx-auto p-8 container">
+      <section class="mb-12 text-center fade-in">
+        <h2 class="mb-4 font-semibold text-3xl">BlueKing Golang APP Framework</h2>
+      </section>
+      <!-- CRUD -->
+      <section id="crud" class="mb-8">
+        <a href="crud">
+          <div class="border-gray-300 bg-white shadow-md p-6 border rounded-lg hover-grow">
+            <h3 class="flex mb-4 font-medium text-2xl">
+              <img alt="logo" class="inline mr-2 w-8 h-8" src="static/image/database.png" />
+              CRUD Example
+            </h3>
+            <p class="mb-4 text-gray-500">Efficiently manage your database data with CRUD APIs and GORM.</p>
+          </div>
+        </a>
+      </section>
+      <!-- Cache -->
+      <section id="cache" class="mb-8">
+        <a href="cache">
+          <div class="border-gray-300 bg-white shadow-md p-6 border rounded-lg hover-grow">
+            <h3 class="flex mb-4 font-medium text-2xl">
+              <img alt="logo" class="inline mr-2 w-8 h-8" src="static/image/cache.png" />
+              Cache Example
+            </h3>
+            <p class="mb-4 text-gray-500">Speed up your access and reduce server pressure through memory / redis cache.</p>
+          </div>
+        </a>
+      </section>
+      <!-- Cloud API -->
+      <section id="cloudApi" class="mb-8">
+        <a href="cloud-api">
+          <div class="border-gray-300 bg-white shadow-md p-6 border rounded-lg hover-grow">
+            <h3 class="flex mb-4 font-medium text-2xl">
+              <img alt="logo" class="inline mr-2 w-8 h-8" src="static/image/cloud_api.png" />
+              Cloud API Example
+            </h3>
+            <p class="mb-4 text-gray-500">Leverage the bk-apigateway-sdk for seamless access to bk-apigw or ESB APIs.</p>
+          </div>
+        </a>
+      </section>
+      <!-- Async Task -->
+      <section id="asyncTask" class="mb-8">
+        <a href="async-task">
+          <div class="border-gray-300 bg-white shadow-md p-6 border rounded-lg hover-grow">
+            <h3 class="flex mb-4 font-medium text-2xl">
+              <img alt="logo" class="inline mr-2 w-8 h-8" src="static/image/async_task.png" />
+              Async Task Example
+            </h3>
+            <p class="mb-4 text-gray-500">Streamline asynchronous task management with goroutines and robfig/cron.</p>
+          </div>
+        </a>
+      </section>
+      <!-- Object Storage -->
+      <section id="objStorage" class="mb-8">
+        <a href="obj-storage">
+          <div class="border-gray-300 bg-white shadow-md p-6 border rounded-lg hover-grow">
+            <h3 class="flex mb-4 font-medium text-2xl">
+              <img alt="logo" class="inline mr-2 w-8 h-8" src="static/image/cloud_upload.png" />
+              Object Storage Example
+            </h3>
+            <p class="mb-4 text-gray-500">
+              Interaction with object storage services, enabling efficient data storage, retrieval and management.
+            </p>
+          </div>
+        </a>
+      </section>
+    </main>
+    {{- template "common.footer" . }}
+  </body>
+</html>
