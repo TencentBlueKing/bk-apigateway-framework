@@ -27,11 +27,13 @@ func Register(rg *gin.RouterGroup) {
 	}
 
 	// 共用的插件配置
+	{% raw %}
 	headerWriterPlugin := model.BuildResourcePluginConfigWithType(
 		model.PluginTypeHeaderRewrite, model.HeaderRewriteConfig{
 			Set:    []model.HeaderRewriteValue{{Key: "X-Test", Value: "test"}},
 			Remove: []model.HeaderRewriteValue{{Key: "X-Test2"}},
 		})
+	{% endraw %}
 
 	util.RegisterBkAPIGatewayRouteWithGroup(
 		categoryRouter, "GET", "",

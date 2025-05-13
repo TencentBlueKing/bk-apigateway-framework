@@ -1,5 +1,4 @@
 {
-  "project_name": "my_plugin",
-  "app_code": "the app code of plugin saas",
-  "init_admin": "the admin"
+  "project_name": "the_project_name_and_app_code_of_plugin_saas",
+  "init_admin": "the_init_admin"
 }

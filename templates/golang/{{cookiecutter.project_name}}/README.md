@@ -55,6 +55,8 @@ export BKPAAS_PROCESS_TYPE=web
 
 ## 配置示例
 
+{% raw %}
+
 ### 网关基础信息配置
 详情见：[config/gateway.go](pkg/config/gateway.go)
 
@@ -198,7 +200,7 @@ func GetReleaseConfig(cfg *config.Config) model.ReleaseConfig {
 		handler.ListCategories,
 	)
 ```
-
+{% endraw %}
 
 配置完之后，可以本地生成 definition.yaml 和 resources.yaml 进行测试
 

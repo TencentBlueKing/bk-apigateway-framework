@@ -13,6 +13,7 @@ The bk-apigateway-framework is a framework for building programmable gateways us
 
 ## Overview
 
+- [Design Document](./docs/design.md)
 - Python Framework
   - [Documentation](./docs/python.md)
   - [Framework Template](./templates/python/)
