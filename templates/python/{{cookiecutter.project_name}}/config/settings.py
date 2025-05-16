@@ -266,6 +266,15 @@ BK_APIGW_STAG_BACKEND_TIMEOUT = 60
 BK_APIGW_STAGE_NAME = bkpaas_environment
 BK_APIGW_STAGE_DESCRIPTION = "生产环境" if bkpaas_environment == "prod" else "预发布环境"
 BK_APIGW_STAGE_DESCRIPTION_EN = "Production Env" if bkpaas_environment == "prod" else "Staging Env"
+# 声明网关不同环境的环境变量
+stag_env_vars = {
+    "foo": "bar"
+}
+prod_env_vars = {
+    # "foo": "bar"
+}
+BK_APIGW_STAGE_ENV_VARS = prod_env_vars if bkpaas_environment == "prod" else stag_env_vars
+
 # 声明网关不同环境的插件配置
 # https://github.com/TencentBlueKing/bkpaas-python-sdk/blob/master/sdks/apigw-manager/docs/plugin-use-guide.md
 # 注意，这里声明的插件配置会作用在对应环境的所有资源上，所以谨慎声明，确保你知道每个插件配置后产生的影响

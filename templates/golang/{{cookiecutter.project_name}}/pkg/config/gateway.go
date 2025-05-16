@@ -81,6 +81,18 @@ func GetStageConfig(cfg *Config) model.StageConfig {
 	backendHost := fmt.Sprintf("%s://%s", parsedUrl.Scheme, parsedUrl.Host)
 	appSubpath := strings.TrimRight(parsedUrl.Path, "/")
 
+	// 声明网关不同环境的环境变量
+	stagEnvVars := map[string]string{
+		// "foo": "bar",
+	}
+	prodEnvVars := map[string]string{
+		// "foo": "bar",
+	}
+	envVars := stagEnvVars
+	if cfg.Platform.RunEnv == "prod" {
+		envVars = prodEnvVars
+	}
+
 	// 设置环境插件：
 	stageHeaderRewritePlugin := model.BuildStagePluginConfigWithType(
 		model.PluginTypeHeaderRewrite,
@@ -103,6 +115,7 @@ func GetStageConfig(cfg *Config) model.StageConfig {
 		PluginConfigs: []*model.PluginConfig{
 			stageHeaderRewritePlugin,
 		},
+		EnvVars: envVars,
 	}
 }
 

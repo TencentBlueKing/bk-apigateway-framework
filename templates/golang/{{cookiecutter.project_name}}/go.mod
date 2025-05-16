@@ -10,7 +10,7 @@ replace github.com/go-sql-driver/mysql => github.com/go-sql-driver/mysql v1.7.1
 
 require (
 	github.com/Masterminds/sprig/v3 v3.2.3
-	github.com/TencentBlueKing/bk-apigateway-sdks v1.0.0
+	github.com/TencentBlueKing/bk-apigateway-sdks v1.1.0
 	github.com/coocood/freecache v1.2.4
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 	github.com/deckarep/golang-set/v2 v2.6.0
