@@ -1,6 +1,6 @@
 ## 背景
 
-bk-apigateway framework 是一个基于 Django Rest Framework + drf-spectacular 的开发框架，用于快速开发 API 接口，部署在蓝鲸 PaaS 开发者中心，并接入到蓝鲸 API 网关。
+bk-apigateway framework 是一个基于 [Django Rest Framework](https://www.django-rest-framework.org/) + [drf-spectacular](https://drf-spectacular.readthedocs.io/en/latest/) 的开发框架，用于快速开发 API 接口，部署在蓝鲸 PaaS 开发者中心，并接入到蓝鲸 API 网关。
 
 能极大地简化开发者对接 API 网关的工作。
 
@@ -9,7 +9,7 @@ bk-apigateway framework 是一个基于 Django Rest Framework + drf-spectacular 
 ## 特性
 
 1. 封装了蓝鲸 PaaS 开发者中心的相关配置，开发者只需要关心 API 的实现以及声明，无需关心部署运行时
-2. 集成了 drf-spectacular，开发者使用 `@extend_schema` 注解进行接口的声明，支持 OpenAPI 3.0 规范，自动生成接入蓝鲸 API 网关所需的 definition.yaml 和 resources.yaml
+2. 集成了 [drf-spectacular](https://drf-spectacular.readthedocs.io/en/latest/)，开发者使用 `@extend_schema` 注解进行接口的声明，支持 OpenAPI 3.0 规范，自动生成接入蓝鲸 API 网关所需的 definition.yaml 和 resources.yaml
 3. 封装了蓝鲸 API 网关的注册流程，开发者只需要在蓝鲸 PaaS 开发者中心进行发布，即可自动注册到蓝鲸 API 网关
 4. 封装了蓝鲸 API 网关的调用流程，通过 `apigw_manager.drf.authentication.ApiGatewayJWTAuthentication`和 `apigw_manager.drf.permission.ApiGatewayPermission`实现解析网关请求中的 jwt，并且根据接口配置校验应用或用户。
 
