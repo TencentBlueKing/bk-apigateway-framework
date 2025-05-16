@@ -5,7 +5,7 @@
 ## 特性
 
 1. 封装了蓝鲸 PaaS 开发者中心的相关配置，开发者只需要关心 API 的实现以及声明，无需关心部署运行时
-2. 只需要按照 [swaggo](https://github.com/swaggo/swag)的方式声明接口 (api 扩展的蓝鲸 api 配置需要配合：RegisterBkAPIGatewayRouteWithGroup 方法进行注册) 自动生成接入蓝鲸 API 网关所需的 definition.yaml 和 resources.yaml
+2. 只需要按照 [swaggo](https://github.com/swaggo/swag) 的方式声明接口 (api 扩展的蓝鲸 api 配置需要配合：`RegisterBkAPIGatewayRouteWithGroup` 方法进行注册) 自动生成接入蓝鲸 API 网关所需的 definition.yaml 和 resources.yaml
 3. 封装了蓝鲸 API 网关的注册流程，开发者只需要在蓝鲸 PaaS 开发者中心进行发布，即可自动注册到蓝鲸 API 网关
 4. 封装了蓝鲸 API 网关的调用流程，通过 `Use(middleware.GatewayJWTAuthMiddleware())`实现解析网关请求中的 jwt，并且根据接口配置校验应用或用户。
 
@@ -18,7 +18,7 @@
 ## 开发步骤
 
 1. 在蓝鲸 PaaS 开发者中心新建 API 网关插件，会基于网关插件模板初始化一个项目，项目中包含了部署到蓝鲸 PaaS 开发者中心的相关配置/接入到蓝鲸 API 网关的相关配置。并且包含一个 Demo 示例;
-2. 开发者根据需求，开发相关的 API，并且使用 [swaggo](https://github.com/swaggo/swag)的注解进行接口的声明，可以在本地开发环境 swagger ui 查看接口配置渲染的效果，并且确认是否正确，也可以使用相关命令生成 definition.yaml 和 resources.yaml 进行验证;
+2. 开发者根据需求，开发相关的 API，并且使用 [swaggo](https://github.com/swaggo/swag) 的注解进行接口的声明，可以在本地开发环境 swagger ui 查看接口配置渲染的效果，并且确认是否正确，也可以使用相关命令生成 definition.yaml 和 resources.yaml 进行验证;
 3. 将代码提交到仓库，并且到蓝鲸 PaaS 开发者中心 - 插件开发进行发布;
 4. 发布时，会自动触发构建，将服务部署到蓝鲸 PaaS 开发者中心，并且接入到蓝鲸 API 网关，开发者可以在蓝鲸 API 网关中查看接口的配置，以及调试接口
 
