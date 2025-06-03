@@ -81,7 +81,7 @@ python manage.py generate_resources_yaml && cat resources.yaml
 
 使用 蓝鲸 API 网关 的 在线调试 功能，可以进行在线调试
 
-## 配置示例
+## 接口配置示例
 
 ### view
 
@@ -204,6 +204,105 @@ class DemoRetrieveInputSLZ(serializers.Serializer):
 class DemoRetrieveOutputSLZ(serializers.Serializer):
     message = serializers.CharField()
     type = serializers.CharField(required=False)
+```
+
+## 网关配置说明
+
+所有网关/环境/版本相关的配置在 `config/settings.py`中，可以根据关键字定位并修改改
+
+### 1. 网关基本属性
+
+> 可以通过环境变量注入 (建议), 也可以直接修改配置代码
+
+```python
+# 网关是否公开，公开则其他开发者可见/可申请权限
+BK_APIGW_IS_PUBLIC = str(env.bool("BK_APIGW_IS_PUBLIC", default=True)).lower()
+# if BK_APIGW_IS_OFFICIAL is True, the BK_APIGW_NAME should be start with `bk-`
+BK_APIGW_IS_OFFICIAL = 1 if env.bool("BK_APIGW_IS_OFFICIAL", default=False) else 10
+# 网关管理员，请将负责人加入列表中
+BK_APIGW_MAINTAINERS = env.list("BK_APIGW_MAINTAINERS", default=["admin"])
+```
+
+### 2. 环境相关配置
+
+超时时间，环境变量以及环境插件
+
+```python
+# 网关接口最大超时时间
+BK_APIGW_STAG_BACKEND_TIMEOUT = 60
+
+# 声明网关不同环境的环境变量
+stag_env_vars = {
+    "foo": "bar"
+}
+prod_env_vars = {
+    # "foo": "bar"
+}
+
+# 声明网关不同环境的插件配置
+# https://github.com/TencentBlueKing/bkpaas-python-sdk/blob/master/sdks/apigw-manager/docs/plugin-use-guide.md
+# 注意，这里声明的插件配置会作用在对应环境的所有资源上，所以谨慎声明，确保你知道每个插件配置后产生的影响
+stag_plugin_configs = build_stage_plugin_config_for_definition_yaml(
+    [
+        build_bk_cors(),
+        build_bk_header_rewrite(set={"X-Foo": "scope-stage-stag"}, remove=["X-Bar"]),
+        build_bk_ip_restriction(blacklist=["192.168.2.1", "192.168.2.2"]),
+        build_bk_rate_limit(
+            default_period=60,
+            default_tokens=1000,
+            specific_app_limits=[("demo3", 3600, 1000)],
+        ),
+    ]
+)
+prod_plugin_configs = build_stage_plugin_config_for_definition_yaml(
+    [
+        # build_bk_cors(),
+        # build_bk_header_rewrite(set={"X-Foo": "scope-stage-prod"}, remove=["X-Bar"]),
+        # build_bk_ip_restriction(blacklist=["192.168.1.1", "192.168.1.2"]),
+        # build_bk_rate_limit(
+        #     default_period=60,
+        #     default_tokens=1000,
+        #     specific_app_limits=[("demo2", 3600, 1000)],
+        # ),
+    ]
+)
+```
+
+### 3. 主动授权
+
+> 可以通过环境变量注入 (建议), 也可以直接修改配置代码
+
+```python
+# 主动授权，网关主动给应用，添加访问网关所有资源
+BK_APIGW_GRANT_PERMISSION_DIMENSION_GATEWAY_APP_CODES = env.list(
+    "BK_APIGW_GRANT_PERMISSION_DIMENSION_GATEWAY_APP_CODES", default=[]
+)
+BK_APIGW_GRANT_PERMISSION_DIMENSION_RESOURCE_APP_CODES = {
+    # app_code: [resource_name1, resource_name2]
+    "demo": ["v1_demo"],
+}
+```
+
+### 4. 版本号及版本日志
+
+> 可以通过环境变量注入 (建议), 也可以直接修改配置代码
+
+```python
+# release settings
+# YOU CAN CHANGE THE RELEASE INFO, use env vars or just change the default below
+# 1.0.0+stag or 1.0.0+prod
+BK_APIGW_RELEASE_VERSION = (
+    # NOTE: 每次部署必须强制版本号变更，否则代码变更版本号不变，不会打出新版本
+    # log: resource_version 1.0.3+stag already exists, skip creating
+    env.str("BK_APIGW_RELEASE_VERSION", default="1.0.0") + "+" + BK_APIGW_STAGE_NAME
+)
+
+
+BK_APIGW_RELEASE_TITLE = env.str("BK_APIGW_RELEASE_TITLE", default=f"gateway release(stage={BK_APIGW_STAGE_NAME})")
+BK_APIGW_RELEASE_COMMENT = env.str(
+    "BK_APIGW_RELEASE_COMMENT",
+    default=f"auto release by bk-apigw-plugin-runtime(stage={BK_APIGW_STAGE_NAME})",
+)
 ```
 
 ## 注意事项
