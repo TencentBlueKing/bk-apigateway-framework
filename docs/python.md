@@ -208,7 +208,7 @@ class DemoRetrieveOutputSLZ(serializers.Serializer):
 
 ## 网关配置说明
 
-所有网关/环境/版本相关的配置在 `config/settings.py`中，可以根据关键字定位并修改改
+所有网关/环境/版本相关的配置在 `config/settings.py`中，可以根据关键字定位并修改配置
 
 ### 1. 网关基本属性
 
