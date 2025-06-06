@@ -6,7 +6,7 @@ app:
   bk_app_name: "{{cookiecutter.project_name}}"
 
 modules:
-  backend:
+  default:
     is_default: True
     scripts:
       pre_release_hook: "bash bin/sync_apigateway.sh"
