@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/crypto"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/crypto"
 )
 
 func TestEncryptDecrypt(t *testing.T) {

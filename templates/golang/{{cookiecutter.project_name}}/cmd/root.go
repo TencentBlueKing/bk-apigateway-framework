@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
 )
 
 var rootCmd = &cobra.Command{

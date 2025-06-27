@@ -7,8 +7,8 @@ import (
 	"context"
 	"reflect"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/async/task"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/async/task"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
 )
 
 // RegisteredTasks 已注册的任务

@@ -8,9 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/samber/lo"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/account"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/common"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/ginx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/account"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/common"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/ginx"
 )
 
 // UserAuth 进行用户身份认证，并将用户信息注入到 context 中

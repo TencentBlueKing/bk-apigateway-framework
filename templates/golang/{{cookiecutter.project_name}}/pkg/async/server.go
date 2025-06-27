@@ -13,9 +13,9 @@ import (
 	"go.opentelemetry.io/otel"
 	"gorm.io/gorm"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/database"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/model"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/database"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/model"
 )
 
 var srv *TaskScheduler

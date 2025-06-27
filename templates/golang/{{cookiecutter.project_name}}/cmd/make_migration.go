@@ -10,9 +10,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/database"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/database"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
 )
 
 var migrationTmpl = `
@@ -80,7 +80,7 @@ var makeMigrationCmd = &cobra.Command{
 		log.Infof(
 			context.Background(),
 			"migration file %s generated, you must edit it and "+
-					"implement the migration logic and then run `migrate` to apply",
+			"implement the migration logic and then run `migrate` to apply",
 			fileName,
 		)
 	},

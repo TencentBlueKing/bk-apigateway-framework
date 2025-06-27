@@ -5,8 +5,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/version"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/version"
 )
 
 var versionCmd = &cobra.Command{

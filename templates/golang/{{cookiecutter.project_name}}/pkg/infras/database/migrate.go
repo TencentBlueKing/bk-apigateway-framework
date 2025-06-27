@@ -12,7 +12,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
 )
 
 // 迁移文件 ID（无需过度严格，只要确保大概格式对即可）

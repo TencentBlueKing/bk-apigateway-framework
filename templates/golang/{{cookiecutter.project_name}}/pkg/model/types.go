@@ -7,8 +7,8 @@ import (
 	"github.com/pkg/errors"
 	"gorm.io/gorm/schema"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/crypto"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/crypto"
 )
 
 // AESEncryptString 为 Gorm 自定义字段类型，用 AES-GCM 算法加密

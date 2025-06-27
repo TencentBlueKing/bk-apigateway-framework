@@ -8,11 +8,11 @@ import (
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/cache/memory"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/database"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/redis"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/cache/memory"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/database"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/redis"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
 )
 
 func initLogger(cfg *config.LogConfig) error {

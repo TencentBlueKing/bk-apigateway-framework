@@ -11,7 +11,7 @@ import (
 
 	"go.opentelemetry.io/otel/trace"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/common"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/common"
 )
 
 // Debugf 打印 debug 日志

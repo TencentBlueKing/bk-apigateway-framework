@@ -16,15 +16,15 @@ import (
 	slogGin "github.com/samber/slog-gin"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/account"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/apis/asynctask"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/apis/basic"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/apis/crud"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/common"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/otel"
-	middleware2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/middleware"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/web"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/account"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/asynctask"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/basic"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/crud"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/common"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/otel"
+	middleware2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/middleware"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/web"
 )
 
 // New create server router

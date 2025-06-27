@@ -7,7 +7,7 @@ import (
 
 	"github.com/coocood/freecache"
 
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
 )
 
 var (

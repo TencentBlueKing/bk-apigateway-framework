@@ -6,11 +6,11 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/database"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
-	model2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/model"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/version"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/database"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
+	model2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/model"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/version"
 )
 
 // NewInitDataCmd ...
@@ -63,28 +63,28 @@ func initDemoData(ctx context.Context) error { // nolint
 				{
 					Name: "Apple",
 					Desc: "Apple is a sweet, edible fruit produced by an apple tree, " +
-							"typically red, green, or yellow in color.",
+					"typically red, green, or yellow in color.",
 					Price:     6.99,
 					BaseModel: baseModel,
 				},
 				{
 					Name: "Banana",
 					Desc: "Banana is a long, curved fruit with a yellow peel and soft, " +
-							"sweet flesh inside, produced by the banana plant.",
+					"sweet flesh inside, produced by the banana plant.",
 					Price:     3.49,
 					BaseModel: baseModel,
 				},
 				{
 					Name: "Orange",
 					Desc: "Orange is a round, juicy citrus fruit with " +
-							"a tough bright orange rind and a sweet-tart flavor.",
+					"a tough bright orange rind and a sweet-tart flavor.",
 					Price:     4.69,
 					BaseModel: baseModel,
 				},
 				{
 					Name: "Peach",
 					Desc: "Peach is a round, juicy fruit with a fuzzy skin " +
-							"and sweet flesh, typically yellow or white in color.",
+					"and sweet flesh, typically yellow or white in color.",
 					Price:     5.79,
 					BaseModel: baseModel,
 				},
@@ -97,29 +97,29 @@ func initDemoData(ctx context.Context) error { // nolint
 				{
 					Name: "The Origin of Species",
 					Desc: "\"On the Origin of Species\" overturned creationism and the fixity of species " +
-							"with a revolutionary theory of evolution, establishing biology on a scientific foundation.",
+					"with a revolutionary theory of evolution, establishing biology on a scientific foundation.",
 					Price:     1859.02,
 					BaseModel: baseModel,
 				},
 				{
 					Name: "The Influence of Sea Power Upon History",
 					Desc: "\"The Influence of Sea Power upon History\" summarizes and studies the strategies " +
-							"and tactics of naval warfare throughout history and their impacts, " +
-							"proposing that control of the sea determines the rise and fall of a nation's fortunes.",
+					"and tactics of naval warfare throughout history and their impacts, " +
+					"proposing that control of the sea determines the rise and fall of a nation's fortunes.",
 					Price:     1890.09,
 					BaseModel: baseModel,
 				},
 				{
 					Name: "Relativity: The Special and General Theory",
 					Desc: "\"Relativity\" is a groundbreaking work written by the scientist Albert Einstein, " +
-							"which completely overturned the concepts of classical physics.",
+					"which completely overturned the concepts of classical physics.",
 					Price:     1916.03,
 					BaseModel: baseModel,
 				},
 				{
 					Name: "Introduction to Interstellar Travel",
 					Desc: "\"Introduction to Interstellar Travel\" provides a comprehensive introduction to " +
-							"the complexity and challenges of interstellar travel technology and practice.",
+					"the complexity and challenges of interstellar travel technology and practice.",
 					Price:     1963.12,
 					BaseModel: baseModel,
 				},
@@ -132,21 +132,21 @@ func initDemoData(ctx context.Context) error { // nolint
 				{
 					Name: "Football",
 					Desc: "Football is a team sport where two teams of eleven players each " +
-							"try to score goals by kicking a ball into the opposing team’s net.",
+					"try to score goals by kicking a ball into the opposing team’s net.",
 					Price:     599.99,
 					BaseModel: baseModel,
 				},
 				{
 					Name: "Basketball",
 					Desc: "Basketball is a team sport where two teams of five players each " +
-							"try to score points by shooting a ball through the opposing team’s hoop.",
+					"try to score points by shooting a ball through the opposing team’s hoop.",
 					Price:     499.99,
 					BaseModel: baseModel,
 				},
 				{
 					Name: "Volleyball",
 					Desc: "Volleyball is a team sport where two teams of six players each " +
-							"try to score points by hitting a ball over a net into the opposing team’s court.",
+					"try to score points by hitting a ball over a net into the opposing team’s court.",
 					Price:     399.99,
 					BaseModel: baseModel,
 				},

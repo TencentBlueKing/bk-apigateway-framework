@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/database"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/model"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/database"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/model"
 )
 
 // Fibonacci 斐波那契数的递归实现，因为性能很差所以适合模拟需要长时间运行的后台任务

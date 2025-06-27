@@ -17,8 +17,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	config2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
+	config2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
 )
 
 // 采样比例
@@ -50,9 +50,9 @@ func newResource(cfg *config2.BkOtelConfig, serviceName string) *resource.Resour
 
 // 创建 OpenTelemetry 追踪器
 func newTracerProvider(
-		res *resource.Resource,
-		exporter *otlptrace.Exporter,
-		sampler sdktrace.Sampler,
+res *resource.Resource,
+exporter *otlptrace.Exporter,
+sampler sdktrace.Sampler,
 ) *sdktrace.TracerProvider {
 	bsp := sdktrace.NewBatchSpanProcessor(exporter)
 	return sdktrace.NewTracerProvider(
@@ -79,7 +79,7 @@ type ShutdownFunc func(context.Context) error
 
 // InitTracer 初始化全局 OpenTelemetry 追踪器
 func InitTracer(
-		ctx context.Context, cfg *config2.BkOtelConfig, serviceName string,
+ctx context.Context, cfg *config2.BkOtelConfig, serviceName string,
 ) (ShutdownFunc, error) {
 	// 只保留 IP:Port / Domain:Port（即 Host），无需 Scheme 等其他信息
 	u, err := url.Parse(cfg.GrpcUrl)

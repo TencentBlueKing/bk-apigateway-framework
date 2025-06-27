@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/envx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/envx"
 )
 
 // 不存在的环境变量

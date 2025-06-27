@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
 )
 
 var G *Config

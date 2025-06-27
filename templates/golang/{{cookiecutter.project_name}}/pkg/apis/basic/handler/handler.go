@@ -8,9 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/samber/lo"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/apis/basic/serializer"
-	probe2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/common/probe"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/version"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/basic/serializer"
+	probe2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/common/probe"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/version"
 )
 
 // Ping ...

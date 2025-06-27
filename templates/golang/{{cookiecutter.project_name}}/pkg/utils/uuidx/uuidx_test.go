@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/uuidx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/uuidx"
 )
 
 func TestNew(t *testing.T) {

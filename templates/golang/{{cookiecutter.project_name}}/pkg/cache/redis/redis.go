@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-redis/cache/v9"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/redis"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/redis"
 )
 
 // Redis 缓存的 key 前缀

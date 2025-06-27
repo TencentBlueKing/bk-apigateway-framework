@@ -1,7 +1,7 @@
 // +heroku install bk.tencent.com/{{cookiecutter.project_name}}
 module bk.tencent.com/{{cookiecutter.project_name}}
 
-go 1.23.7
+go 1.24
 
 toolchain go1.24.2
 

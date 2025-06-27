@@ -8,7 +8,7 @@ import (
 
 	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/model"
 
-	handler2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/apis/crud/handler"
+	handler2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/crud/handler"
 )
 
 // Register ...

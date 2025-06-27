@@ -8,7 +8,7 @@ import (
 	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/model"
 	"github.com/spf13/cast"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/envx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/envx"
 )
 
 func GetApiConfig(cfg *Config) *model.APIConfig {
@@ -50,7 +50,7 @@ func GetGatewayConfig(cfg *Config) model.GatewayConfig {
 		Description: fmt.Sprintf("这是应用%s 的 API 网关。由网关开发框架自动注册.", cfg.Platform.AppID),
 		DescriptionEn: fmt.Sprintf(
 			"This is the API Gateway for app %s."+
-					" Registered automatically by the api gateway development framework.",
+			" Registered automatically by the api gateway development framework.",
 			cfg.Platform.AppID),
 		// 网关是否公开
 		IsPublic: cast.ToBool(envx.Get("BK_APIGW_IS_PUBLIC", "true")),
