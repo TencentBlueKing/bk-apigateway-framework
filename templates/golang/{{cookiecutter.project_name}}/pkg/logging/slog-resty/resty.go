@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-resty/resty/v2"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
 )
 
 // Logger 用于实现 resty.Logger

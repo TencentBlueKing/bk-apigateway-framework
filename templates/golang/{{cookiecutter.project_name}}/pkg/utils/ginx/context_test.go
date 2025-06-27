@@ -7,7 +7,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/ginx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/ginx"
 )
 
 func TestGetRequestID(t *testing.T) {

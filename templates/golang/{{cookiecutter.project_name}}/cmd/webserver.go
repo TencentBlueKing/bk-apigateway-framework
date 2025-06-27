@@ -10,10 +10,10 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/otel"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/router"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/otel"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/router"
 )
 
 // NewWebServerCmd ...

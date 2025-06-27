@@ -5,8 +5,8 @@ import (
 	"github.com/go-gormigrate/gormigrate/v2"
 	"gorm.io/gorm"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/database"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/model"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/database"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/model"
 )
 
 func init() {

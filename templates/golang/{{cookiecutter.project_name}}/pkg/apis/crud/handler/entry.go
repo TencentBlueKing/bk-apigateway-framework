@@ -9,10 +9,10 @@ import (
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/apis/crud/serializer"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/database"
-	model2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/model"
-	ginx2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/ginx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/crud/serializer"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/database"
+	model2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/model"
+	ginx2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/ginx"
 )
 
 // ListEntries ...

@@ -3,7 +3,7 @@ package web
 import (
 	"github.com/gin-gonic/gin"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/web/handler"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/web/handler"
 )
 
 // Register ...

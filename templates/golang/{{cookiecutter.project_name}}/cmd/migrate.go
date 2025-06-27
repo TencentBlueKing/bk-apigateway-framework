@@ -9,10 +9,10 @@ import (
 	// load migration package to register migrations
 	_ "bk.tencent.com/{{cookiecutter.project_name}}/pkg/migration"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	database2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/database"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/version"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	database2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/database"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/version"
 )
 
 // NewMigrateCmd ...

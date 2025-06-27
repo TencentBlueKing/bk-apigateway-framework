@@ -2,7 +2,7 @@
 package account
 
 import (
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/common"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/common"
 )
 
 // GetAuthBackend 通过 Token 类型获取 AuthBackend

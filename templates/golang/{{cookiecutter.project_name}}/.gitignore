@@ -12,7 +12,7 @@ go.work
 
 .vscode/
 
-../.idea/
+.idea/
 
 {{cookiecutter.project_name}}/logs
 *.log

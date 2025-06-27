@@ -5,9 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/common"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/ginx"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/uuidx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/common"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/ginx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/uuidx"
 )
 
 // RequestID 中间件用于注入 RequestID

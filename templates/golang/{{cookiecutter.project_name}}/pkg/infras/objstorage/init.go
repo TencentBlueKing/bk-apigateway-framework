@@ -10,10 +10,10 @@ import (
 
 	"github.com/go-resty/resty/v2"
 
-	config2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/otel/otel-resty"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging/slog-resty"
+	config2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/otel/otel-resty"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging/slog-resty"
 )
 
 // Client 获取对象存储客户端
@@ -49,12 +49,12 @@ func newBkGenericRepoClient(cfg *config2.BkRepoConfig) *BkGenericRepoClient {
 		SetRetryCount(2).
 		SetRetryWaitTime(5 * time.Second).
 		SetRetryMaxWaitTime(10 * time.Second).
-			AddRetryCondition(
-				func(response *resty.Response, err error) bool {
-					// Retry on 5xx status codes
-					return response.StatusCode() >= http.StatusInternalServerError
-				},
-			).
+	AddRetryCondition(
+		func(response *resty.Response, err error) bool {
+			// Retry on 5xx status codes
+			return response.StatusCode() >= http.StatusInternalServerError
+		},
+	).
 		// OpenTelemetry 相关中间件
 		OnBeforeRequest(otelresty.RequestMiddleware).
 		OnAfterResponse(otelresty.ResponseMiddleware)

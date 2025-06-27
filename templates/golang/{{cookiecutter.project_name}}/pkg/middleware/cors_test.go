@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/middleware"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/middleware"
 )
 
 func TestCORS(t *testing.T) {

@@ -11,7 +11,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
 )
 
 const (
@@ -190,7 +190,7 @@ func (c *BkGenericRepoClient) GetFileMetadata(ctx context.Context, path string) 
 
 // GenPreSignedUrl 生成预签名 URL（只允许下载）
 func (c *BkGenericRepoClient) GenPreSignedUrl(
-		ctx context.Context, path string, expireSeconds int,
+ctx context.Context, path string, expireSeconds int,
 ) (*PreSignedUrlData, error) {
 	url := "/generic/temporary/url/create"
 

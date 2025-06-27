@@ -4,7 +4,7 @@ package asynctask
 import (
 	"github.com/gin-gonic/gin"
 
-	handler2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/apis/asynctask/handler"
+	handler2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/asynctask/handler"
 )
 
 // Register ...

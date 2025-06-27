@@ -8,11 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/samber/lo"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/apis/asynctask/serializer"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/async"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/database"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/model"
-	ginx2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/ginx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/asynctask/serializer"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/async"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/database"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/model"
+	ginx2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/ginx"
 )
 
 // ListTasks ...

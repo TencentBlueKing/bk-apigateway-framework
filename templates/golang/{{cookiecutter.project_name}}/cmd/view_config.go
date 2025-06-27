@@ -8,8 +8,8 @@ import (
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
 )
 
 // NewViewConfigCmd ...

@@ -2,7 +2,7 @@
 package serializer
 
 import (
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/common/probe"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/common/probe"
 )
 
 // HealthzResponse ...

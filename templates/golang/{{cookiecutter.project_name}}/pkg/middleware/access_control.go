@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/samber/lo"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/ginx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/ginx"
 )
 
 // AccessControl 用户访问控制（重要：应该在 UserAuth 中间件后使用）

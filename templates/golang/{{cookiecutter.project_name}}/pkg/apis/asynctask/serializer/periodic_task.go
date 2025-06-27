@@ -6,7 +6,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/robfig/cron/v3"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/async"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/async"
 )
 
 // PeriodicTaskListResponse List PeriodicTask API 返回结构

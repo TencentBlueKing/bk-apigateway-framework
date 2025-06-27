@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/cast"
 	"github.com/spf13/viper"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/envx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/envx"
 )
 
 var (

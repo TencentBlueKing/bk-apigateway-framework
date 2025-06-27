@@ -7,8 +7,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/middleware"
-	testingutil "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/testing"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/middleware"
+	testingutil "bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/testing"
 )
 
 func TestQueryTokenAuthRight(t *testing.T) {

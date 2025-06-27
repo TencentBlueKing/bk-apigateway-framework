@@ -7,9 +7,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/samber/lo"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/infras/objstorage"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/ginx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/objstorage"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/ginx"
 )
 
 // GetIndexPage 首页

@@ -4,7 +4,7 @@ package ginx
 import (
 	"github.com/gin-gonic/gin"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/common"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/common"
 )
 
 // GetRequestID ...

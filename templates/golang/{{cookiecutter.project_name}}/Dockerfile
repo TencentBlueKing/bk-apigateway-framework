@@ -1,5 +1,5 @@
 # -------------- builder container --------------
-FROM golang:1.23 as builder
+FROM golang:1.24 as builder
 
 WORKDIR /go/src/
 
@@ -13,7 +13,7 @@ RUN go env -w GOPROXY=https://mirrors.cloud.tencent.com/go/,direct
 
 RUN go mod download
 
-COPY .. .
+COPY . .
 
 RUN make build
 

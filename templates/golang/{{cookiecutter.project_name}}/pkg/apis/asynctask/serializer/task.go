@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/async"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/async"
 )
 
 // TaskListResponse List Task API 返回结构

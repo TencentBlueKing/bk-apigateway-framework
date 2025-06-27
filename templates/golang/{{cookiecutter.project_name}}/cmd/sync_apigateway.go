@@ -6,10 +6,10 @@ import (
 	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/gen"
 	"github.com/spf13/cobra"
 
-	config2 "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/config"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/logging"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/envx"
-	"bk.tencent.com/{{cookiecutter.project_name}}/{{cookiecutter.project_name}}/pkg/utils/filex"
+	config2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
+	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/envx"
+	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/filex"
 )
 
 // NewGenDefinitionYamlCmd ...
