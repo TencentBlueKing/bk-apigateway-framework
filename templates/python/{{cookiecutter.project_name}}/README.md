@@ -128,26 +128,28 @@ class DemoRetrieveApi(generics.RetrieveAPIView):
 ```python
 # 是否开启同步 MCP Server
 BK_APIGW_STAGE_ENABLE_MCP_SERVERS = False
-# 环境 MCP Server相关配置
-stag_mcp_servers = {
-    "stage": [
+stage_mcp_servers = {
+    "stag": [
         {
-            "name": "prod1",
-            "description": "prod1",
+            "name": "mcp_server1",
+            "description": "mcp_server1",
+            # 主动授权 app_code
             "target_app_codes": [APP_CODE],
-            "labels": ["123"],
+            "labels": ["demo1"],
+            # 是否启用：1-启用，0-停止
             "status": 1,
+            # 是否公开
             "is_public": True,
             "tools": []
         }
     ],
     "prod": [
         {
-            "name": "prod1",
-            "description": "prod1",
+            "name": "mcp_server2",
+            "description": "mcp_server2",
             # 主动授权 app_code
             "target_app_codes": [APP_CODE],
-            "labels": ["123"],
+            "labels": ["demo1"],
             # 是否启用：1-启用，0-停止
             "status": 0,
             # 是否公开
@@ -167,5 +169,5 @@ stag_mcp_servers = {
     ]
 }
 
-STAGE_MCP_SERVERS = stag_mcp_servers.get(bkpaas_environment, [])
+BK_APIGW_STAGE_MCP_SERVERS = stag_mcp_servers.get(bkpaas_environment, [])
 ```
