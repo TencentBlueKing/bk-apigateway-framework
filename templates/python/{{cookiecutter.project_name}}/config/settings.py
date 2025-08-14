@@ -342,3 +342,46 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 # DO NOT CHANGE THIS SECTION ！！！（unless you know what the var meaning and what it effect）
+
+
+## mcp server config
+BK_APIGW_STAGE_ENABLE_MCP_SERVERS = False
+stage_mcp_servers = {
+    "stag": [
+        {
+            "name": "mcp_server1",
+            "description": "mcp_server1",
+            # 主动授权 app_code
+            "target_app_codes": [APP_CODE],
+            "labels": ["demo1"],
+            # 是否启用：1-启用，0-停止
+            "status": 1,
+            # 是否公开
+            "is_public": True,
+            # 添加的资源列表(如果不指定则会将符合规范的都加入)
+            "tools": []
+        }
+    ],
+    "prod": [
+        {
+            "name": "mcp_server1",
+            "description": "mcp_server1",
+            "target_app_codes": [APP_CODE],
+            "labels": ["demo1"],
+            "status": 0,
+            "is_public": False,
+            "tools": []
+        },
+        {
+            "name": "mcp_server2",
+            "description": "mcp_server2",
+            "target_app_codes": [APP_CODE],
+            "labels": ["demo2"],
+            "status": 1,
+            "is_public": True,
+            "tools": ["demo2"]
+        }
+    ]
+}
+
+BK_APIGW_STAGE_MCP_SERVERS = stage_mcp_servers.get(bkpaas_environment, [])
