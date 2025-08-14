@@ -140,31 +140,28 @@ stage_mcp_servers = {
             "status": 1,
             # 是否公开
             "is_public": True,
+            # 添加的资源列表(如果不指定则会将符合规范的都加入)
             "tools": []
         }
     ],
     "prod": [
         {
-            "name": "mcp_server2",
-            "description": "mcp_server2",
-            # 主动授权 app_code
+            "name": "mcp_server1",
+            "description": "mcp_server1",
             "target_app_codes": [APP_CODE],
             "labels": ["demo1"],
-            # 是否启用：1-启用，0-停止
             "status": 0,
-            # 是否公开
             "is_public": False,
-            # 添加的资源列表(如果不指定则会将符合规范的都加入)
             "tools": []
         },
         {
-            "name": "prod2",
-            "description": "prod1",
+            "name": "mcp_server2",
+            "description": "mcp_server2",
             "target_app_codes": [APP_CODE],
-            "labels": ["123"],
+            "labels": ["demo2"],
             "status": 1,
             "is_public": True,
-            "tools": ["demo1"]
+            "tools": ["demo2"]
         }
     ]
 }
