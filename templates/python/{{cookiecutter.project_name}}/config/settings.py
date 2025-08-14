@@ -387,4 +387,4 @@ stage_mcp_servers = {
     ]
 }
 
-BK_APIGW_STAGE_MCP_SERVERS = stag_mcp_servers.get(bkpaas_environment, [])
+BK_APIGW_STAGE_MCP_SERVERS = stage_mcp_servers.get(bkpaas_environment, [])
