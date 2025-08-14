@@ -35,10 +35,12 @@ pymysql.install_as_MySQLdb()
 # Patch version info to forcedly pass Django client check
 pymysql.version_info = 1, 4, 2, "final", 0
 
+
 # environ
 env = environ.Env()
 # load environment variables from .env file
 environ.Env.read_env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -72,6 +74,7 @@ DEBUG = env.bool("DEBUG", False)
 IS_LOCAL = env.bool("IS_LOCAL", False)
 
 ALLOWED_HOSTS = ["*"]
+
 
 # Application definition
 
@@ -123,6 +126,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "wsgi.application"
 
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -136,6 +140,7 @@ if IS_LOCAL:
     }
 else:
     DATABASES = {"default": get_default_database_config_dict(locals())}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -155,6 +160,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -167,6 +173,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -311,8 +318,9 @@ BK_APIGW_GRANT_PERMISSION_DIMENSION_RESOURCE_APP_CODES = {
 BK_APIGW_RELEASE_VERSION = (
     # NOTE: 每次部署必须强制版本号变更，否则代码变更版本号不变，不会打出新版本
     # log: resource_version 1.0.3+stag already exists, skip creating
-        env.str("BK_APIGW_RELEASE_VERSION", default="1.0.0") + "+" + BK_APIGW_STAGE_NAME
+    env.str("BK_APIGW_RELEASE_VERSION", default="1.0.0") + "+" + BK_APIGW_STAGE_NAME
 )
+
 
 BK_APIGW_RELEASE_TITLE = env.str("BK_APIGW_RELEASE_TITLE", default=f"gateway release(stage={BK_APIGW_STAGE_NAME})")
 BK_APIGW_RELEASE_COMMENT = env.str(
