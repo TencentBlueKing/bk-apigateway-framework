@@ -3,7 +3,7 @@ package main
 import (
 	_ "go.uber.org/automaxprocs"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/cmd"
+	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/cmd"
 )
 
 // swagger api doc

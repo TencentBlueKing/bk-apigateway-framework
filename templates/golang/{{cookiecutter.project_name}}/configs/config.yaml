@@ -2,7 +2,7 @@
 # 蓝鲸平台相关配置
 platform:
   # 蓝鲸应用 ID
-  appID: {{cookiecutter.project_name}}
+  appID: blueapps-go
   # 蓝鲸应用密钥
   appSecret: <masked>
   # 应用模块名称
@@ -32,6 +32,17 @@ platform:
       user: root
       password: <masked>
       charset: utf8mb4
+      tls:
+        # 是否启用 TLS 证书连接（若启用则必须提供 CA 证书）
+        enabled: false
+        # CA 证书文件路径
+        certCaFile: ""
+        # Cert 证书文件路径
+        certFile: ""
+        # Cert Key 文件路径
+        certKeyFile: ""
+        # 是否跳过 TLS 校验（不推荐在生产环境使用）
+        insecureSkipVerify: false
     # RabbitMQ 消息队列服务
     rabbitMQ:
       host: localhost
@@ -39,12 +50,24 @@ platform:
       user: gin-demo
       vhost: gin-demo
       password: <masked>
+      tls:
+        enabled: false
+        certCaFile: ""
+        certFile: ""
+        certKeyFile: ""
+        insecureSkipVerify: false
     # Redis 服务
     redis:
       username: ""
       host: localhost
       port: 6379
       password: <masked>
+      tls:
+        enabled: false
+        certCaFile: ""
+        certFile: ""
+        certKeyFile: ""
+        insecureSkipVerify: false
     # 蓝鲸制品库（对象存储）
     bkRepo:
       endpointUrl: http://localhost
@@ -64,7 +87,7 @@ platform:
 service:
   # Gin Web 服务
   server:
-    port: 8080
+    port: 5001
     graceTimeout: 30
     ginRunMode: debug
   # 日志配置
@@ -77,6 +100,21 @@ service:
   allowedOrigins: ["*"]
   # 默认允许所有用户访问
   allowedUsers: []
+  # DB 加密密钥，若未使用加密功能可不配置
+  # 生成方式参见 Readme 文档 - 数据库字段加密
+  encryptSecret: ""
+  # 用户认证方式
+  # 目前支持：BkTicket、BkToken、Taihu
+  # 按顺序尝试认证，最后一个会尝试跳转登录页面
+  # 如果包含 Taihu，则需要配置 TaihuAppToken
+  # 示例：["Taihu", "BkToken"]
+  authTypes: ["BkToken"]
+  # Taihu 应用 Token，用于验证用户身份
+  # 可在太湖 - 应用概览 - 应用信息处获取
+  taihuAppToken: ""
+  # Taihu 非安全模式（明文/兼容模式）
+  # 必须与 Taihu 应用上设置的保持一致
+  taihuInsecure: false
   # CSRF Cookie 生效域名，为空代表当前域名
   csrfCookieDomain: "example.com"
   # 健康检查 API Token
@@ -85,16 +123,14 @@ service:
   # 需与 app_desc.yaml 中的 `spec.observability.monitoring.metrics.params.token` 保持一致
   # 否则将导致集群中的 serviceMonitor 无法获取服务指标信息，进而导致蓝鲸监控看板无数据
   metricToken: metric_token
-  # 是否启用 Swagger 服务
-  enableSwagger: false
-  # 文档，静态文件，模板的基础目录
-  docFileBaseDir: docs
-  staticFileBaseDir: static
-  tmplFileBaseDir: templates
   # 缓存内存大小（单位为 MB）
   memoryCacheSize: 100
-  # DB 加密密钥，若未使用加密功能可不配置
-  # 生成方式参见 Readme 文档 - 数据库字段加密
-  encryptSecret: ""
+  # 是否启用 Swagger 服务
+  enableSwagger: false
+  # 文档，静态，国际化文件，模板的基础目录
+  apiDocFileBaseDir: docs
+  staticFileBaseDir: static
+  i18nFileBaseDir: i18n
+  tmplFileBaseDir: templates
 # 业务相关配置
 biz: {}

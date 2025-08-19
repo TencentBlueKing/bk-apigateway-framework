@@ -61,7 +61,7 @@ export BKPAAS_PROCESS_TYPE=web
 详情见：[config/gateway.go](pkg/config/gateway.go)
 
 ```go
-func GetApiConfig(cfg *config.Config) *model.APIConfig {
+func GetApiConfig(cfg *SvcConfig) *model.APIConfig {
 	apiConfig := &model.APIConfig{
 		APIGateway: GetGatewayConfig(cfg),
 		Stage:      GetStageConfig(cfg),
@@ -89,7 +89,7 @@ func GetApiConfig(cfg *config.Config) *model.APIConfig {
 }
 
 // GetGatewayConfig ... 获取网关配置
-func GetGatewayConfig(cfg *config.Config) model.GatewayConfig {
+func GetGatewayConfig(cfg *SvcConfig) model.GatewayConfig {
 	// BK_APIGW_IS_OFFICIAL is True, the BK_APIGW_NAME should be start with `bk-`
 	apiType := "10"
 	if cast.ToBool(envx.Get("BK_APIGW_IS_OFFICIAL", "False")) {
@@ -100,19 +100,22 @@ func GetGatewayConfig(cfg *config.Config) model.GatewayConfig {
 		Description: fmt.Sprintf("这是应用%s 的 API 网关。由网关开发框架自动注册.", cfg.Platform.AppID),
 		DescriptionEn: fmt.Sprintf(
 			"This is the API Gateway for app %s."+
-					" Registered automatically by the api gateway development framework.",
+			" Registered automatically by the api gateway development framework.",
 			cfg.Platform.AppID),
 		// 网关是否公开
 		IsPublic: cast.ToBool(envx.Get("BK_APIGW_IS_PUBLIC", "true")),
 		APIType:  apiType,
 		// 网关管理员
-		Maintainers: envx.GetEnvList("BK_APIGW_MAINTAINERS", []string{"admin"}),
+		Maintainers: utils.GetEnvList("BK_APIGW_MAINTAINERS", []string{"admin"}),
 	}
 }
 
 // GetStageConfig ... 获取stage配置
-func GetStageConfig(cfg *config.Config) model.StageConfig {
-	preallocatedUrls, err := envx.MustGetEnvJSON("BKPAAS_DEFAULT_PREALLOCATED_URLS")
+func GetStageConfig(cfg *SvcConfig) *model.StageConfig {
+	preallocatedUrls, err := utils.GetEnvJSON("BKPAAS_DEFAULT_PREALLOCATED_URLS", map[string]string{
+		"prod": "https://prod.example.com",
+		"stag": "https://stag.example.com",
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -143,7 +146,7 @@ func GetStageConfig(cfg *config.Config) model.StageConfig {
 			},
 		})
 
-	return model.StageConfig{
+	stageConfig := &model.StageConfig{
 		Name:           cfg.Platform.RunEnv,
 		Description:    description,
 		DescriptionEn:  descriptionEn,
@@ -153,20 +156,42 @@ func GetStageConfig(cfg *config.Config) model.StageConfig {
 		PluginConfigs: []*model.PluginConfig{
 			stageHeaderRewritePlugin,
 		},
+		EnableMcpServers: cast.ToBool(envx.Get("BK_APIGW_STAGE_ENABLE_MCP_SERVERS", "true")),
 	}
+
+	// 设置 mcp server 配置
+	if stageConfig.EnableMcpServers {
+		stageMcpServers := []*model.McpServer{
+			{
+				Name:        "mcp-server",
+				Description: "mcp-server",
+				// 是否公开
+				IsPublic: true,
+				// 是否启用：0-未启用，1-启用
+				Status: 1,
+				// mcp server 绑定的资源列表
+				Tools: []string{"create_user"},
+				// 主动授权
+				TargetAppCodes: []string{"app1"},
+			},
+		}
+		stageConfig.McpServerConfigs = stageMcpServers
+	}
+	return stageConfig
 }
 
 // GetReleaseConfig ... 获取发布配置
-func GetReleaseConfig(cfg *config.Config) model.ReleaseConfig {
+func GetReleaseConfig(cfg *SvcConfig) model.ReleaseConfig {
 	return model.ReleaseConfig{
 		// 版本号: v1.0.0+prod
 		Version: fmt.Sprintf("%s+%s",
-			envx.Get("BK_APIGW_RELEASE_VERSION", "1.0.1"),
-			envx.MustGet("BKPAAS_ENVIRONMENT")),
+			envx.Get("BK_APIGW_RELEASE_VERSION", "1.0.0"),
+			envx.Get("BKPAAS_ENVIRONMENT", "prod")),
 		// 版本日志
 		Comment: envx.Get("BK_APIGW_RELEASE_COMMENT", ""),
 	}
 }
+
 ```
 
 ###  API蓝鲸网关扩展配置
@@ -196,6 +221,11 @@ func GetReleaseConfig(cfg *config.Config) model.ReleaseConfig {
 				UserVerifiedRequired: true, // 用户认证
 				AppVerifiedRequired:  true, // 应用认证
 			}),
+			// 设置资源名称，不设置则自动生成
+            basicConfig.WithOperationID("resource_name"),
+            // 开启mcp
+            basicConfig.WithMcpEnable(true),
+			// 设置 plugin
 			basicConfig.WithPluginConfig(headerWriterPlugin)),
 		handler.ListCategories,
 	)

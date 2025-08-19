@@ -8,10 +8,12 @@ import (
 	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/model"
 	"github.com/spf13/cast"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/envx"
+	"github.com/TencentBlueKing/blueapps-go/pkg/utils/envx"
+
+	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/utils"
 )
 
-func GetApiConfig(cfg *Config) *model.APIConfig {
+func GetApiConfig(cfg *SvcConfig) *model.APIConfig {
 	apiConfig := &model.APIConfig{
 		APIGateway: GetGatewayConfig(cfg),
 		Stage:      GetStageConfig(cfg),
@@ -39,7 +41,7 @@ func GetApiConfig(cfg *Config) *model.APIConfig {
 }
 
 // GetGatewayConfig ... 获取网关配置
-func GetGatewayConfig(cfg *Config) model.GatewayConfig {
+func GetGatewayConfig(cfg *SvcConfig) model.GatewayConfig {
 	// BK_APIGW_IS_OFFICIAL is True, the BK_APIGW_NAME should be start with `bk-`
 	apiType := "10"
 	if cast.ToBool(envx.Get("BK_APIGW_IS_OFFICIAL", "False")) {
@@ -56,13 +58,16 @@ func GetGatewayConfig(cfg *Config) model.GatewayConfig {
 		IsPublic: cast.ToBool(envx.Get("BK_APIGW_IS_PUBLIC", "true")),
 		APIType:  apiType,
 		// 网关管理员
-		Maintainers: envx.GetEnvList("BK_APIGW_MAINTAINERS", []string{"admin"}),
+		Maintainers: utils.GetEnvList("BK_APIGW_MAINTAINERS", []string{"admin"}),
 	}
 }
 
 // GetStageConfig ... 获取stage配置
-func GetStageConfig(cfg *Config) model.StageConfig {
-	preallocatedUrls, err := envx.MustGetEnvJSON("BKPAAS_DEFAULT_PREALLOCATED_URLS")
+func GetStageConfig(cfg *SvcConfig) *model.StageConfig {
+	preallocatedUrls, err := utils.GetEnvJSON("BKPAAS_DEFAULT_PREALLOCATED_URLS", map[string]string{
+		"prod": "https://prod.example.com",
+		"stag": "https://stag.example.com",
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -81,18 +86,6 @@ func GetStageConfig(cfg *Config) model.StageConfig {
 	backendHost := fmt.Sprintf("%s://%s", parsedUrl.Scheme, parsedUrl.Host)
 	appSubpath := strings.TrimRight(parsedUrl.Path, "/")
 
-	// 声明网关不同环境的环境变量
-	stagEnvVars := map[string]string{
-		// "foo": "bar",
-	}
-	prodEnvVars := map[string]string{
-		// "foo": "bar",
-	}
-	envVars := stagEnvVars
-	if cfg.Platform.RunEnv == "prod" {
-		envVars = prodEnvVars
-	}
-
 	// 设置环境插件：
 	stageHeaderRewritePlugin := model.BuildStagePluginConfigWithType(
 		model.PluginTypeHeaderRewrite,
@@ -105,7 +98,7 @@ func GetStageConfig(cfg *Config) model.StageConfig {
 			},
 		})
 
-	return model.StageConfig{
+	stageConfig := &model.StageConfig{
 		Name:           cfg.Platform.RunEnv,
 		Description:    description,
 		DescriptionEn:  descriptionEn,
@@ -115,17 +108,37 @@ func GetStageConfig(cfg *Config) model.StageConfig {
 		PluginConfigs: []*model.PluginConfig{
 			stageHeaderRewritePlugin,
 		},
-		EnvVars: envVars,
+		EnableMcpServers: cast.ToBool(envx.Get("BK_APIGW_STAGE_ENABLE_MCP_SERVERS", "false")),
 	}
+
+	// 设置 mcp server 配置
+	if stageConfig.EnableMcpServers {
+		stageMcpServers := []*model.McpServer{
+			{
+				Name:        "mcp-server",
+				Description: "mcp-server",
+				// 是否公开
+				IsPublic: true,
+				// 是否启用：0-未启用，1-启用
+				Status: 1,
+				// mcp server 绑定的资源列表
+				Tools: []string{},
+				// 主动授权
+				TargetAppCodes: []string{"app1"},
+			},
+		}
+		stageConfig.McpServerConfigs = stageMcpServers
+	}
+	return stageConfig
 }
 
 // GetReleaseConfig ... 获取发布配置
-func GetReleaseConfig(cfg *Config) model.ReleaseConfig {
+func GetReleaseConfig(cfg *SvcConfig) model.ReleaseConfig {
 	return model.ReleaseConfig{
 		// 版本号: v1.0.0+prod
 		Version: fmt.Sprintf("%s+%s",
-			envx.Get("BK_APIGW_RELEASE_VERSION", "1.0.1"),
-			envx.MustGet("BKPAAS_ENVIRONMENT")),
+			envx.Get("BK_APIGW_RELEASE_VERSION", "1.0.0"),
+			envx.Get("BKPAAS_ENVIRONMENT", "prod")),
 		// 版本日志
 		Comment: envx.Get("BK_APIGW_RELEASE_COMMENT", ""),
 	}
