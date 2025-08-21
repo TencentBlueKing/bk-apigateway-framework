@@ -8,12 +8,11 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/TencentBlueKing/blueapps-go/pkg/logging"
 	"github.com/spf13/cobra"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/otel"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/router"
+	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/config"
+	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/router"
 )
 
 // NewWebServerCmd ...
@@ -29,27 +28,6 @@ func NewWebServerCmd() *cobra.Command {
 			cfg, err := config.Load(ctx, cfgFile)
 			if err != nil {
 				logging.Fatalf("failed to load config: %s", err)
-			}
-
-			// 初始化 Logger
-			if err = initLogger(&cfg.Service.Log); err != nil {
-				logging.Fatalf("failed to init logging: %s", err)
-			}
-			// 初始化增强服务客户端
-			if err = initAddons(ctx, cfg); err != nil {
-				logging.Fatalf("failed to init addons: %s", err)
-			}
-			// 初始化 OpenTelemetry
-			if cfg.Platform.Addons.BkOtel != nil {
-				shutdown, sErr := otel.InitTracer(ctx, cfg.Platform.Addons.BkOtel, otel.GenServiceName("web"))
-				if sErr != nil {
-					logging.Fatalf("failed to init OpenTelemetry: %s", sErr)
-				}
-				defer func() {
-					if err = shutdown(ctx); err != nil {
-						logging.Fatalf("failed to shutdown OpenTelemetry: %s", err)
-					}
-				}()
 			}
 
 			// 启动 Web 服务

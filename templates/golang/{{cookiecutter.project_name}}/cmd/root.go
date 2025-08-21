@@ -5,12 +5,12 @@ import (
 
 	"github.com/spf13/cobra"
 
-	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
+	log "github.com/TencentBlueKing/blueapps-go/pkg/logging"
 )
 
 var rootCmd = &cobra.Command{
 	Use:   "{{cookiecutter.project_name}}",
-	Short: "Golang Gin Template V2",
+	Short: "{{cookiecutter.project_name}}",
 	Run: func(cmd *cobra.Command, args []string) {
 		log.Info(context.Background(), "welcome to use {{cookiecutter.project_name}}, use `{{cookiecutter.project_name}} -h` for help")
 	},

@@ -6,12 +6,13 @@ import (
 	"path/filepath"
 
 	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/gen"
+	log "github.com/TencentBlueKing/blueapps-go/pkg/logging"
+	"github.com/TencentBlueKing/blueapps-go/pkg/utils/envx"
 	"github.com/spf13/cobra"
 
-	config2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/envx"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/filex"
+	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/config"
+	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/router"
+	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/utils"
 )
 
 // NewGenDefinitionYamlCmd ...
@@ -24,14 +25,16 @@ func NewGenDefinitionYamlCmd() *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := context.Background()
 			// 加载配置
-			cfg, err := config2.Load(ctx, cfgFile)
+			cfg, err := config.Load(ctx, cfgFile)
 			if err != nil {
 				log.Fatalf("failed to load config: %s", err)
 			}
-			apiConfig := config2.GetApiConfig(cfg)
-			yaml := gen.GenDefinitionYaml(apiConfig)
+			apiConfig := config.GetApiConfig(cfg)
+			engine := router.New(log.GetLogger("gin"))
+			docPath := docsDir + "/swagger.json"
+			yaml := gen.GenDefinitionYaml(apiConfig, docPath, engine)
 			log.Infof(ctx, "gen definition yaml success:\n %s", yaml)
-			definitionFilePath := filepath.Join(filex.GetParentDir(docsDir), "definition.yaml")
+			definitionFilePath := filepath.Join(utils.GetParentDir(docsDir), "definition.yaml")
 			// 生成资源配置yaml文件
 			err = os.WriteFile(definitionFilePath, []byte(yaml), 0o644)
 			if err != nil {
@@ -44,7 +47,7 @@ func NewGenDefinitionYamlCmd() *cobra.Command {
 	// 配置文件路径，如果未指定，会从环境变量读取各项配置
 	// 注意：目前平台未默认提供配置文件，需通过 `模块配置 - 挂载卷` 添加
 	migrateCmd.Flags().StringVar(&cfgFile, "conf", "", "config file")
-	migrateCmd.Flags().StringVar(&docsDir, "docs", envx.Get("DOC_FILE_BASE_DIR", "../"),
+	migrateCmd.Flags().StringVar(&docsDir, "docs", envx.Get("DOC_FILE_BASE_DIR", "./docs"),
 		"swagger json docs dir")
 	return &migrateCmd
 }

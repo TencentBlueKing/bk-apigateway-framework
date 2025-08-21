@@ -6,10 +6,11 @@ import (
 	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/gen"
 	"github.com/spf13/cobra"
 
-	config2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
-	log "bk.tencent.com/{{cookiecutter.project_name}}/pkg/logging"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/envx"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/utils/filex"
+	log "github.com/TencentBlueKing/blueapps-go/pkg/logging"
+	"github.com/TencentBlueKing/blueapps-go/pkg/utils/envx"
+
+	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/config"
+	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/utils"
 )
 
 // NewGenDefinitionYamlCmd ...
@@ -22,13 +23,13 @@ func NewSyncApigatewayCmd() *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := context.Background()
 			// 加载配置
-			cfg, err := config2.Load(ctx, cfgFile)
+			cfg, err := config.Load(ctx, cfgFile)
 			if err != nil {
 				log.Fatalf("failed to load config: %s", err)
 			}
-			baseDir := filex.GetParentDir(docsDir)
+			baseDir := utils.GetParentDir(docsDir)
 			gatewayName := cfg.Platform.AppID
-			apiConfig := config2.GetApiConfig(cfg)
+			apiConfig := config.GetApiConfig(cfg)
 			gen.SyncGinGateway(baseDir, gatewayName, apiConfig, true)
 		},
 	}

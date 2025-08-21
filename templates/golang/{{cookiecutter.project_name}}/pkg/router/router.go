@@ -2,29 +2,20 @@
 package router
 
 import (
-	"fmt"
 	"log/slog"
-	"net/http"
-	"time"
 
-	"github.com/Masterminds/sprig/v3"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/cookie"
+	"github.com/TencentBlueKing/blueapps-go/pkg/apis/basic"
 	"github.com/gin-gonic/gin"
-	"github.com/penglongli/gin-metrics/ginmetrics"
 	"github.com/samber/lo"
 	slogGin "github.com/samber/slog-gin"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/account"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/asynctask"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/basic"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/apis/crud"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/common"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/config"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/infras/otel"
-	middleware2 "bk.tencent.com/{{cookiecutter.project_name}}/pkg/middleware"
-	"bk.tencent.com/{{cookiecutter.project_name}}/pkg/web"
+	"github.com/TencentBlueKing/blueapps-go/pkg/common"
+	"github.com/TencentBlueKing/blueapps-go/pkg/config"
+	"github.com/TencentBlueKing/blueapps-go/pkg/infras/otel"
+	"github.com/TencentBlueKing/blueapps-go/pkg/middleware"
+
+	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/apis/user"
 )
 
 // New create server router
@@ -33,59 +24,16 @@ func New(slogger *slog.Logger) *gin.Engine {
 	gin.DisableConsoleColor()
 
 	router := gin.New()
-	_ = router.SetTrustedProxies(nil)
-	store := cookie.NewStore([]byte(config.G.Platform.AppSecret))
-	store.Options(sessions.Options{MaxAge: int(30 * time.Minute)})
-	router.Use(sessions.Sessions(fmt.Sprintf("%s-session", config.G.Platform.AppID), store))
 
-	// 服务指标
-	m := ginmetrics.GetMonitor()
-	m.SetMetricPath("/metrics")
-	// 探针相关 API 不应被记录
-	m.SetExcludePaths([]string{"/ping", "/healthz"})
-	// 默认超过 1s 算是慢请求
-	m.SetSlowTime(1)
-	// 请求时间分段记录
-	m.SetDuration([]float64{0.01, 0.05, 0.1, 0.5, 1, 2, 5})
-	m.UseWithoutExposingEndpoint(router)
+	basic.Register(router)
 
 	// Gin 中间件
 	setMiddlewares(router, slogger)
-
-	// 设置静态文件
-	router.Static("/static", config.G.Service.StaticFileBaseDir)
-	// 设置模板方法
-	router.SetFuncMap(sprig.FuncMap())
-	// 加载 HTML 模板文件
-	router.LoadHTMLGlob(config.G.Service.TmplFileBaseDir + "/web/*")
-	// 404 访问路径不存在
-	router.NoRoute(func(c *gin.Context) {
-		c.HTML(http.StatusNotFound, "404.html", nil)
-	})
-
-	// 基础 API
-	basic.Register(router)
-
-	// 用户认证组件
-	authBackend := account.GetAuthBackend()
-	// 前端页面
-	{
-		webfeRG := router.Group("")
-		webfeRG.Use(middleware2.UserAuth(authBackend))
-		webfeRG.Use(middleware2.AccessControl(config.G.Service.AllowedUsers))
-		web.Register(webfeRG)
-	}
-
 	// 后端 API
 	{
 		apiRG := router.Group("/api")
-		apiRG.Use(middleware2.UserAuth(authBackend))
-		apiRG.Use(middleware2.AccessControl(config.G.Service.AllowedUsers))
-
-		// 数据库 CRUD 示例
-		crud.Register(apiRG)
-		// 异步任务调用示例
-		asynctask.Register(apiRG)
+		// CRUD
+		user.Register(apiRG)
 	}
 
 	return router
@@ -108,15 +56,13 @@ func setMiddlewares(router *gin.Engine, slogger *slog.Logger) {
 			},
 		),
 	))
-	router.Use(middleware2.RequestID())
+	router.Use(middleware.RequestID())
 	// 替换 slogGin 配置以保持一致
 	slogGin.RequestIDKey = common.RequestIDLogKey
 	slogGin.SpanIDKey = common.SpanIDLogKey
 	slogGin.TraceIDKey = common.TraceIDLogKey
 	cfg := slogGin.Config{WithTraceID: true, WithSpanID: true, WithRequestID: true}
 	router.Use(slogGin.NewWithConfig(slogger, cfg))
-	router.Use(middleware2.CORS(config.G.Service.AllowedOrigins))
-	router.Use(middleware2.CSRF(config.G.Platform.AppID, config.G.Platform.AppSecret))
-	router.Use(middleware2.CSRFToken(config.G.Platform.AppID, config.G.Service.CSRFCookieDomain))
 	router.Use(gin.Recovery())
+	// 更多中间件见：https://github.com/TencentBlueKing/blueapps-go/tree/main/pkg/middleware
 }
