@@ -64,4 +64,5 @@ func setMiddlewares(router *gin.Engine, slogger *slog.Logger) {
 	cfg := slogGin.Config{WithTraceID: true, WithSpanID: true, WithRequestID: true}
 	router.Use(slogGin.NewWithConfig(slogger, cfg))
 	router.Use(gin.Recovery())
+	// 更多中间件见：https://github.com/TencentBlueKing/blueapps-go/tree/main/pkg/middleware
 }

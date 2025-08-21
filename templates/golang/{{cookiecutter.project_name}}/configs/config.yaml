@@ -2,7 +2,7 @@
 # 蓝鲸平台相关配置
 platform:
   # 蓝鲸应用 ID
-  appID: blueapps-go
+  appID:  {{cookiecutter.project_name}}
   # 蓝鲸应用密钥
   appSecret: <masked>
   # 应用模块名称

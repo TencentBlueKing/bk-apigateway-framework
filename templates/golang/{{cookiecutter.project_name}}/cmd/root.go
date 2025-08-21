@@ -9,10 +9,10 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "code-gw-go-demo",
-	Short: "Golang Gin Template V2",
+	Use:   "{{cookiecutter.project_name}}",
+	Short: "{{cookiecutter.project_name}}",
 	Run: func(cmd *cobra.Command, args []string) {
-		log.Info(context.Background(), "welcome to use code-gw-go-demo, use `code-gw-go-demo -h` for help")
+		log.Info(context.Background(), "welcome to use {{cookiecutter.project_name}}, use `{{cookiecutter.project_name}} -h` for help")
 	},
 }
 

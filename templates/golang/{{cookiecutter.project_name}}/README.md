@@ -2,7 +2,7 @@
 
 ## 说明
 
-本框架基于 `蓝鲸开发者中心-Golang Gin` 开发框架用于快速开发 API 接口，部署在蓝鲸 PaaS 开发者中心，并接入到蓝鲸 API 网关。
+本框架基于 [蓝鲸开发者中心-Golang Gin](https://github.com/TencentBlueKing/blueapps-go) 开发框架用于快速开发 API 接口，部署在蓝鲸 PaaS 开发者中心，并接入到蓝鲸 API 网关。
 
 能极大地简化开发者对接 API 网关的工作。
 

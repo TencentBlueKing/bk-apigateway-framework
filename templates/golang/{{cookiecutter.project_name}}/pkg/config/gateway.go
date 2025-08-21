@@ -138,7 +138,8 @@ func GetReleaseConfig(cfg *SvcConfig) model.ReleaseConfig {
 		// 版本号: v1.0.0+prod
 		Version: fmt.Sprintf("%s+%s",
 			envx.Get("BK_APIGW_RELEASE_VERSION", "1.0.0"),
-			envx.Get("BKPAAS_ENVIRONMENT", "prod")),
+			envx.MustGet("BKPAAS_ENVIRONMENT"),
+		),
 		// 版本日志
 		Comment: envx.Get("BK_APIGW_RELEASE_COMMENT", ""),
 	}
