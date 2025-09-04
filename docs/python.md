@@ -346,3 +346,64 @@ class DemoRetrieveApi(generics.RetrieveAPIView):
 框架中关键路径上都有打印日志，日志级别是 debug, 所以可以通过修改日志级别来获取日志，排查问题。
 
 可以设置环境变量 `BKAPP_LOG_LEVEL=DEBUG`, 之后重新发布。然后复现问题，在开发者中心日志中查看日志。
+
+
+### 4. 如何同步 `MCP Server` 相关配置
+api 声明时通过 `enable_mcp=True` 开启 `MCP` 功能，并且注意确认请求参数。
+```python
+class DemoRetrieveApi(generics.RetrieveAPIView):
+    ......
+    @extend_schema(
+     # 是否开启MCP
+     enable_mcp=True,
+     # 是否有请求参数，对于已经声明：parameters，requestBody参数的不用设置
+     none_schema=True,
+    )
+    def get(self, request, id, *args, **kwargs):
+        ......
+```
+配置：
+
+```python
+# 是否开启同步 MCP Server
+BK_APIGW_STAGE_ENABLE_MCP_SERVERS = False
+stage_mcp_servers = {
+    "stag": [
+        {
+            "name": "mcp_server1",
+            "description": "mcp_server1",
+            # 主动授权 app_code
+            "target_app_codes": [APP_CODE],
+            "labels": ["demo1"],
+            # 是否启用：1-启用，0-停止
+            "status": 1,
+            # 是否公开
+            "is_public": True,
+            # 添加的资源列表(如果不指定则会将符合规范的都加入)
+            "tools": []
+        }
+    ],
+    "prod": [
+        {
+            "name": "mcp_server1",
+            "description": "mcp_server1",
+            "target_app_codes": [APP_CODE],
+            "labels": ["demo1"],
+            "status": 0,
+            "is_public": False,
+            "tools": []
+        },
+        {
+            "name": "mcp_server2",
+            "description": "mcp_server2",
+            "target_app_codes": [APP_CODE],
+            "labels": ["demo2"],
+            "status": 1,
+            "is_public": True,
+            "tools": ["demo2"]
+        }
+    ]
+}
+
+BK_APIGW_STAGE_MCP_SERVERS = stage_mcp_servers.get(bkpaas_environment, [])
+```
