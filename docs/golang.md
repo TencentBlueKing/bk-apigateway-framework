@@ -56,7 +56,7 @@ export BKPAAS_PROCESS_TYPE=web
 ## 配置示例
 
 ### 网关基础信息配置
-详情见：[config/gateway.go](pkg/config/gateway.go)
+详情见：[config/gateway.go](https://github.com/TencentBlueKing/bk-apigateway-framework/blob/master/templates/golang/%7B%7Bcookiecutter.project_name%7D%7D/pkg/config/gateway.go)
 
 ```go
 func GetApiConfig(cfg *SvcConfig) *model.APIConfig {
@@ -193,7 +193,9 @@ func GetReleaseConfig(cfg *SvcConfig) model.ReleaseConfig {
 ```
 
 ###  API蓝鲸网关扩展配置
-详情见:[demo](pkg/apis/crud/router.go)
+
+详情见:[demo](https://github.com/TencentBlueKing/bk-apigateway-framework/blob/master/templates/golang/%7B%7Bcookiecutter.project_name%7D%7D/pkg/apis/user/router.go)
+
 ```go
     // 使用网关鉴权中间件
 	categoryRouter.Use(middleware.GatewayJWTAuthMiddleware())
