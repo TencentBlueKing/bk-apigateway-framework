@@ -163,10 +163,14 @@ func GetStageConfig(cfg *SvcConfig) *model.StageConfig {
 			{
 				Name:        "mcp-server",
 				Description: "mcp-server",
+				// 中文名
+				Title: "示例 mcpserver"
 				// 是否公开
 				IsPublic: true,
 				// 是否启用：0-未启用，1-启用
 				Status: 1,
+				// 协议类型：sse/streamable_http; 推荐使用 streamable_http 更稳定
+				ProtocolType: model.MCPServerProtocolStreamableHTTP,
 				// mcp server 绑定的资源列表
 				Tools: []string{"create_user"},
 				// 主动授权
