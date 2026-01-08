@@ -371,12 +371,16 @@ stage_mcp_servers = {
     "stag": [
         {
             "name": "mcp_server1",
+            # 中文名
+            "title": "示例 mcpserver1"
             "description": "mcp_server1",
             # 主动授权 app_code
             "target_app_codes": [APP_CODE],
             "labels": ["demo1"],
             # 是否启用：1-启用，0-停止
             "status": 1,
+            # 协议类型：sse/streamable_http; 推荐使用 streamable_http 更稳定
+            "protocol_type": "streamable_http",
             # 是否公开
             "is_public": True,
             # 添加的资源列表(如果不指定则会将符合规范的都加入)
@@ -386,19 +390,23 @@ stage_mcp_servers = {
     "prod": [
         {
             "name": "mcp_server1",
+            "title": "示例 mcpserver1"
             "description": "mcp_server1",
             "target_app_codes": [APP_CODE],
             "labels": ["demo1"],
             "status": 0,
+            "protocol_type": "streamable_http",
             "is_public": False,
             "tools": []
         },
         {
             "name": "mcp_server2",
+            "title": "示例 mcpserver2"
             "description": "mcp_server2",
             "target_app_codes": [APP_CODE],
             "labels": ["demo2"],
             "status": 1,
+            "protocol_type": "streamable_http",
             "is_public": True,
             "tools": ["demo2"]
         }

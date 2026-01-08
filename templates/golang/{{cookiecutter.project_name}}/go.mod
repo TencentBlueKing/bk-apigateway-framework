@@ -9,7 +9,7 @@ toolchain go1.24.2
 replace github.com/go-sql-driver/mysql => github.com/go-sql-driver/mysql v1.7.1
 
 require (
-	github.com/TencentBlueKing/bk-apigateway-sdks v1.1.2
+	github.com/TencentBlueKing/bk-apigateway-sdks v1.1.3
 	github.com/TencentBlueKing/blueapps-go v1.6.2
 	github.com/gin-gonic/gin v1.10.1
 	github.com/pkg/errors v0.9.1
