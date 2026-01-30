@@ -354,10 +354,12 @@ api 声明时通过 `enable_mcp=True` 开启 `MCP` 功能，并且注意确认�
 class DemoRetrieveApi(generics.RetrieveAPIView):
     ......
     @extend_schema(
-     # 是否开启MCP
-     enable_mcp=True,
-     # 是否有请求参数，对于已经声明：parameters，requestBody参数的不用设置
-     none_schema=True,
+      extensions=gen_apigateway_resource_config(
+             # 是否开启MCP
+            enable_mcp=True,
+             # 是否有请求参数，对于已经声明：parameters，requestBody参数的不用设置
+            none_schema=True,
+        )
     )
     def get(self, request, id, *args, **kwargs):
         ......
