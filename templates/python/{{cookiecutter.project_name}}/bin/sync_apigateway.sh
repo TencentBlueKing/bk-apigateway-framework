@@ -5,7 +5,7 @@ python manage.py migrate --no-input
 
 echo "[Sync] BEGIN ====================="
 echo "[Sync] generate definition.yaml"
-python manage.py generate_definition_yaml
+python manage.py generate_definition_yaml --render
 if [ $? -ne 0 ]
 then
 	echo "run generate_definition_yaml fail, please run this command on your development env to find out the reason"
