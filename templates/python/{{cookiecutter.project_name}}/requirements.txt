@@ -4,7 +4,7 @@ Django==3.2.25
 django-prometheus==2.3.1
 django-environ==0.12.0
 gunicorn==23.0.0
-apigw-manager[drf]==4.2.2
+apigw-manager[drf]==4.2.3
 python-json-logger==3.2.1
 concurrent-log-handler==0.9.25
 pymysql==1.1.1
