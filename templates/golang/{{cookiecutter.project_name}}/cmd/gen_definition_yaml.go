@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/gen"
 	log "github.com/TencentBlueKing/blueapps-go/pkg/logging"
@@ -31,6 +32,24 @@ func NewGenDefinitionYamlCmd() *cobra.Command {
 			}
 			apiConfig := config.GetApiConfig(cfg)
 			engine := router.New(log.GetLogger("gin"))
+
+			// 校验 docsDir，防止路径遍历导致任意文件写入
+			absDocsDir, err := filepath.Abs(docsDir)
+			if err != nil {
+				log.Fatalf("failed to resolve docs dir: %s", err)
+			}
+			cwd, err := os.Getwd()
+			if err != nil {
+				log.Fatalf("failed to get current working directory: %s", err)
+			}
+			rel, err := filepath.Rel(cwd, absDocsDir)
+			if err != nil {
+				log.Fatalf("failed to validate docs dir: %s", err)
+			}
+			if strings.HasPrefix(rel, "..") {
+				log.Fatalf("invalid docs dir %q: path traversal detected", docsDir)
+			}
+
 			docPath := docsDir + "/swagger.json"
 			yaml := gen.GenDefinitionYaml(apiConfig, docPath, engine)
 			log.Infof(ctx, "gen definition yaml success:\n %s", yaml)
