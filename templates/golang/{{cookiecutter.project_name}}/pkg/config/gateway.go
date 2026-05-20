@@ -115,16 +115,27 @@ func GetStageConfig(cfg *SvcConfig) *model.StageConfig {
 	if stageConfig.EnableMcpServers {
 		stageMcpServers := []*model.McpServer{
 			{
-				Name:        "mcp-server",
+				Name:  "mcp-server",
+				Title: "MCP 服务",
 				Description: "mcp-server",
-				// 是否公开
+				// 是否公开，默认不公开
 				IsPublic: true,
-				// 是否启用：0-未启用，1-启用
+				// 协议类型：sse（默认）、streamable_http
+				ProtocolType: model.MCPServerProtocolStreamableHTTP,
+				// 是否启用：0-未启用，1-启用（必选字段）
 				Status: 1,
-				// mcp server 绑定的资源列表
-				Tools: []string{},
+				// mcp server 绑定的资源名称列表
+				ResourceNames: []string{},
+				// 工具名称列表，默认等于 ResourceNames；如需重命名可设置此字段，长度必须与 ResourceNames 一致且不能重复
+				// ToolNames: []string{},
 				// 主动授权
 				TargetAppCodes: []string{"app1"},
+				// 是否开启 OAuth2 公开客户端模式，开启后将对 bk_app_code=public 的应用授权，默认不开启
+				// Oauth2PublicClientEnabled: false,
+				// 是否返回原始响应，开启后 mcp-proxy 将直接返回 API 响应结果，不添加 request_id 等额外信息，默认不开启
+				// RawResponseEnabled: false,
+				// MCP Server 分类名称列表，不传则不更新分类
+				// CategoryNames: []string{"Official"},
 			},
 		}
 		stageConfig.McpServerConfigs = stageMcpServers

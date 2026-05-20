@@ -366,6 +366,43 @@ class DemoRetrieveApi(generics.RetrieveAPIView):
 ```
 配置：
 
+MCP Server 配置字段说明：
+
+| 参数名称 | 参数类型 | 必选 | 描述 |
+|---------|---------|------|------|
+| `name` | string | 是 | MCP Server 名字，系统会自动转换为 `{gateway_name}-{stage_name}-{name}` |
+| `title` | string | 否 | MCP Server 中文名/显示名称 |
+| `description` | string | 是 | MCP Server 描述 |
+| `labels` | array[string] | 否 | MCP Server 标签 |
+| `tools` | array[string] | 是 | MCP Server 关联的资源列表，对应 resources.yaml 中定义的资源名称 |
+| `tool_names` | array[string] | 否 | MCP Server 工具名称列表，默认等于 tools(resource_names)。如需对资源进行重命名可设置此字段，长度必须与 tools 一致，且不能重复 |
+| `is_public` | bool | 否 | 是否公开，默认不公开 |
+| `status` | integer | 是 | 状态：1 表示启用，0 表示关闭 |
+| `protocol_type` | string | 否 | MCP 协议类型：`sse`（默认）、`streamable_http` |
+| `target_app_codes` | array[string] | 否 | 主动授权的应用列表 |
+| `oauth2_public_client_enabled` | bool | 否 | 是否开启 OAuth2 公开客户端模式，开启后将对 `bk_app_code=public` 的应用进行授权，默认不开启 |
+| `raw_response_enabled` | bool | 否 | 是否返回原始响应，开启后 mcp-proxy 将直接返回 API 响应结果，不添加 request_id 等额外信息，默认不开启 |
+| `category_names` | array[string] | 否 | MCP Server 分类名称列表，不传则不更新分类 |
+
+支持的分类（category_names）：
+
+| 分类标识 | 描述 |
+|---------|------|
+| `Uncategorized` | 未分类 |
+| `Official` | 官方资源 |
+| `Featured` | 精选推荐 |
+| `Monitoring` | 监控告警 |
+| `ConfigManagement` | 配置管理 |
+| `DevOps` | 持续交付 |
+| `Emergency` | 故障管理 |
+| `Database` | 数据服务 |
+| `Automation` | 运维自动化 |
+| `Observability` | 可观测性 |
+| `Security` | 安全合规 |
+| `ResourceOptimize` | 资源优化 |
+| `ChaosEngineering` | 混沌工程 |
+| `Network` | 网络管理 |
+
 ```python
 # 是否开启同步 MCP Server
 BK_APIGW_STAGE_ENABLE_MCP_SERVERS = False
@@ -374,43 +411,59 @@ stage_mcp_servers = {
         {
             "name": "mcp_server1",
             # 中文名
-            "title": "示例 mcpserver1"
+            "title": "MCP 服务1",
             "description": "mcp_server1",
             # 主动授权 app_code
             "target_app_codes": [APP_CODE],
             "labels": ["demo1"],
-            # 是否启用：1-启用，0-停止
+            # 是否启用：1-启用，0-停止（必选字段）
             "status": 1,
-            # 协议类型：sse/streamable_http; 推荐使用 streamable_http 更稳定
+            # 协议类型：sse（默认）、streamable_http
             "protocol_type": "streamable_http",
-            # 是否公开
+            # 是否公开，默认不公开
             "is_public": True,
             # 添加的资源列表(如果不指定则会将符合规范的都加入)
-            "tools": []
+            "tools": [],
+            # 工具名称列表，默认等于 tools(resource_names)；如需重命名可设置此字段，长度必须与 tools 一致且不能重复
+            # "tool_names": [],
+            # 是否开启 OAuth2 公开客户端模式，开启后将对 bk_app_code=public 的应用授权，默认不开启
+            # "oauth2_public_client_enabled": False,
+            # 是否返回原始响应，开启后 mcp-proxy 将直接返回 API 响应结果，不添加 request_id 等额外信息，默认不开启
+            # "raw_response_enabled": False,
+            # MCP Server 分类名称列表，不传则不更新分类
+            # "category_names": [],
         }
     ],
     "prod": [
         {
             "name": "mcp_server1",
-            "title": "示例 mcpserver1"
+            "title": "mcp_server1",
             "description": "mcp_server1",
             "target_app_codes": [APP_CODE],
             "labels": ["demo1"],
             "status": 0,
             "protocol_type": "streamable_http",
             "is_public": False,
-            "tools": []
+            "tools": [],
+            # "tool_names": [],
+            # "oauth2_public_client_enabled": False,
+            # "raw_response_enabled": False,
+            # "category_names": [],
         },
         {
             "name": "mcp_server2",
-            "title": "示例 mcpserver2"
+            "title": "mcp_server2",
             "description": "mcp_server2",
             "target_app_codes": [APP_CODE],
             "labels": ["demo2"],
             "status": 1,
             "protocol_type": "streamable_http",
             "is_public": True,
-            "tools": ["demo2"]
+            "tools": ["demo2"],
+            # "tool_names": ["demo2"],
+            # "oauth2_public_client_enabled": False,
+            # "raw_response_enabled": False,
+            # "category_names": ["Official"],
         }
     ]
 }
