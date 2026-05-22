@@ -356,14 +356,22 @@ stage_mcp_servers = {
             # 主动授权 app_code
             "target_app_codes": [APP_CODE],
             "labels": ["demo1"],
-            # 是否启用：1-启用，0-停止
+            # 是否启用：1-启用，0-停止（必选字段）
             "status": 1,
-            # 是否公开
+            # 是否公开，默认不公开
             "is_public": True,
-            # 协议类型：streamable_http/sse
+            # 协议类型：sse（默认）、streamable_http
             "protocol_type": "streamable_http",
             # 添加的资源列表(如果不指定则会将符合规范的都加入)
-            "tools": []
+            "tools": [],
+            # 工具名称列表，默认等于 tools(resource_names)；如需重命名可设置此字段，长度必须与 tools 一致且不能重复
+            # "tool_names": [],
+            # 是否开启 OAuth2 公开客户端模式，开启后将对 bk_app_code=public 的应用授权，默认不开启
+            # "oauth2_public_client_enabled": False,
+            # 是否返回原始响应，开启后 mcp-proxy 将直接返回 API 响应结果，不添加 request_id 等额外信息，默认不开启
+            # "raw_response_enabled": False,
+            # MCP Server 分类名称列表，不传则不更新分类
+            # "category_names": [],
         }
     ],
     "prod": [
@@ -376,7 +384,11 @@ stage_mcp_servers = {
             "status": 0,
             "is_public": False,
             "protocol_type": "streamable_http",
-            "tools": []
+            "tools": [],
+            # "tool_names": [],
+            # "oauth2_public_client_enabled": False,
+            # "raw_response_enabled": False,
+            # "category_names": [],
         },
         {
             "name": "mcp_server2",
@@ -387,7 +399,11 @@ stage_mcp_servers = {
             "status": 1,
             "is_public": True,
             "protocol_type": "streamable_http",
-            "tools": ["demo2"]
+            "tools": ["demo2"],
+            # "tool_names": ["demo2"],
+            # "oauth2_public_client_enabled": False,
+            # "raw_response_enabled": False,
+            # "category_names": ["Official"],
         }
     ]
 }
