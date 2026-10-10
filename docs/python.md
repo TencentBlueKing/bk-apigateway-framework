@@ -34,7 +34,7 @@ bk-apigateway framework 是一个基于 [Django Rest Framework](https://www.djan
 
 ### 3. 本地开发
 
-默认框架中带有示例代码，可以参考目录`api/v1/`下的 serializer 和 view 写法法
+默认框架中带有示例代码，可以参考目录`api/v1/`下的 serializer 和 view 写法
 
 设置环境变量 (可以在项目跟路径新建一个`.envrc`文件，将下面内容放入文件中，启动时会自动加载；也可以在启动命令行终端中手动执行下面的内容)
 
@@ -59,11 +59,11 @@ python manage.py runserver 0.0.0.0:8080
 可以访问 swagger ui 地址：http://0.0.0.0:8080/api/schema/swagger-ui/#/open
 注意这个地址可以查看所有接口的文档，确认正确性，但是如果想要调试，需要将 settings.py 中的 `REST_FRAMEWORK DEFAULT_AUTHENTICATION_CLASSES/DEFAULT_PERMISSION_CLASSES` 注解掉
 
-此时，日志文件在项目上层目录
+此时，日志文件在项目根目录下的 `logs` 目录
 
 ```bash
 # 将app_code换成应用名称
-tail -f ../logs/{app_code}/*.log
+tail -f logs/{app_code}/*.log
 ```
 
 配置完之后，可以本地生成 definition.yaml 和 resources.yaml 进行测试
@@ -73,11 +73,11 @@ python manage.py generate_definition_yaml && cat definition.yaml
 python manage.py generate_resources_yaml && cat resources.yaml
 ```
 
-### 3. 提交代码并发布
+### 4. 提交代码并发布
 
 确认发布结果
 
-### 4. 蓝鲸 API 网关确认并进行在线调试
+### 5. 蓝鲸 API 网关确认并进行在线调试
 
 使用 蓝鲸 API 网关 的 在线调试 功能，可以进行在线调试
 
@@ -120,7 +120,7 @@ class DemoRetrieveApi(generics.RetrieveAPIView):
     # https://drf-spectacular.readthedocs.io/en/latest/readme.html#customization-by-using-extend-schema
     @extend_schema(
         # 全局唯一，避免冲突
-        operation_id="api_v1_demo",
+        operation_id="v1_demo",
         description="这是一个 demo api",
         parameters=[
             serializers.DemoRetrieveInputSLZ,
@@ -155,6 +155,8 @@ class DemoRetrieveApi(generics.RetrieveAPIView):
             ],
             # 匹配所有子路径，默认为 False
             match_subpath=False,
+            # 是否开启 OAuth2 个人客户端模式(个人 token)，开启时必须同时设置 user_verified_required=True，默认 False
+            # oauth2_personal_client_enabled=False,
         ),
     )
     def get(self, request, id, *args, **kwargs):
@@ -381,6 +383,7 @@ MCP Server 配置字段说明：
 | `protocol_type` | string | 否 | MCP 协议类型：`sse`（默认）、`streamable_http` |
 | `target_app_codes` | array[string] | 否 | 主动授权的应用列表 |
 | `oauth2_public_client_enabled` | bool | 否 | 是否开启 OAuth2 公开客户端模式，开启后将对 `bk_app_code=public` 的应用进行授权，默认不开启 |
+| `oauth2_personal_client_enabled` | bool | 否 | 是否开启 OAuth2 个人客户端模式(个人 token)，开启后将对 `bk_app_code=personal` 的应用进行授权，默认不开启 |
 | `raw_response_enabled` | bool | 否 | 是否返回原始响应，开启后 mcp-proxy 将直接返回 API 响应结果，不添加 request_id 等额外信息，默认不开启 |
 | `category_names` | array[string] | 否 | MCP Server 分类名称列表，不传则不更新分类 |
 
@@ -428,6 +431,8 @@ stage_mcp_servers = {
             # "tool_names": [],
             # 是否开启 OAuth2 公开客户端模式，开启后将对 bk_app_code=public 的应用授权，默认不开启
             # "oauth2_public_client_enabled": False,
+            # 是否开启 OAuth2 个人客户端模式(个人 token)，开启后将对 bk_app_code=personal 的应用授权，默认不开启
+            # "oauth2_personal_client_enabled": False,
             # 是否返回原始响应，开启后 mcp-proxy 将直接返回 API 响应结果，不添加 request_id 等额外信息，默认不开启
             # "raw_response_enabled": False,
             # MCP Server 分类名称列表，不传则不更新分类
@@ -447,6 +452,7 @@ stage_mcp_servers = {
             "tools": [],
             # "tool_names": [],
             # "oauth2_public_client_enabled": False,
+            # "oauth2_personal_client_enabled": False,
             # "raw_response_enabled": False,
             # "category_names": [],
         },
@@ -462,6 +468,7 @@ stage_mcp_servers = {
             "tools": ["demo2"],
             # "tool_names": ["demo2"],
             # "oauth2_public_client_enabled": False,
+            # "oauth2_personal_client_enabled": False,
             # "raw_response_enabled": False,
             # "category_names": ["Official"],
         }

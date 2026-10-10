@@ -17,6 +17,8 @@ from urllib.parse import urlparse
 
 import environ
 import pymysql
+from django.db.backends.mysql.features import DatabaseFeatures
+from django.utils.functional import cached_property
 from apigw_manager.drf.utils import (
     get_default_database_config_dict,
     get_logging_config_dict,
@@ -33,7 +35,19 @@ from apigw_manager.plugin.config import (
 
 pymysql.install_as_MySQLdb()
 # Patch version info to forcedly pass Django client check
-pymysql.version_info = 1, 4, 2, "final", 0
+pymysql.version_info = 1, 4, 3, "final", 0
+
+
+class PatchFeatures:
+    @cached_property
+    def minimum_database_version(self):
+        if self.connection.mysql_is_mariadb:
+            return (10, 4)
+        return (5, 7)
+
+
+# 目前 Django 仅是对 5.7 做了软性的不兼容改动，在没有使用 8.0 特异的功能时，对 5.7 版本的使用无影响
+DatabaseFeatures.minimum_database_version = PatchFeatures.minimum_database_version
 
 
 # environ
@@ -169,8 +183,6 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 
@@ -368,6 +380,8 @@ stage_mcp_servers = {
             # "tool_names": [],
             # 是否开启 OAuth2 公开客户端模式，开启后将对 bk_app_code=public 的应用授权，默认不开启
             # "oauth2_public_client_enabled": False,
+            # 是否开启 OAuth2 个人客户端模式(个人 token)，开启后将对 bk_app_code=personal 的应用授权，默认不开启
+            # "oauth2_personal_client_enabled": False,
             # 是否返回原始响应，开启后 mcp-proxy 将直接返回 API 响应结果，不添加 request_id 等额外信息，默认不开启
             # "raw_response_enabled": False,
             # MCP Server 分类名称列表，不传则不更新分类
@@ -387,6 +401,7 @@ stage_mcp_servers = {
             "tools": [],
             # "tool_names": [],
             # "oauth2_public_client_enabled": False,
+            # "oauth2_personal_client_enabled": False,
             # "raw_response_enabled": False,
             # "category_names": [],
         },
@@ -402,6 +417,7 @@ stage_mcp_servers = {
             "tools": ["demo2"],
             # "tool_names": ["demo2"],
             # "oauth2_public_client_enabled": False,
+            # "oauth2_personal_client_enabled": False,
             # "raw_response_enabled": False,
             # "category_names": ["Official"],
         }
