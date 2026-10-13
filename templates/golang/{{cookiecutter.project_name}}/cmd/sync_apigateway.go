@@ -3,7 +3,7 @@ package cmd
 import (
 	"context"
 
-	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/gen"
+	"github.com/TencentBlueKing/bk-apigateway-sdks/v2/gin_contrib/gen"
 	"github.com/spf13/cobra"
 
 	log "github.com/TencentBlueKing/blueapps-go/pkg/logging"

@@ -2,11 +2,11 @@
 package user
 
 import (
-	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/middleware"
-	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/util"
+	"github.com/TencentBlueKing/bk-apigateway-sdks/v2/gin_contrib/middleware"
+	"github.com/TencentBlueKing/bk-apigateway-sdks/v2/gin_contrib/util"
 	"github.com/gin-gonic/gin"
 
-	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/model"
+	"github.com/TencentBlueKing/bk-apigateway-sdks/v2/gin_contrib/model"
 
 	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/apis/user/handler"
 )

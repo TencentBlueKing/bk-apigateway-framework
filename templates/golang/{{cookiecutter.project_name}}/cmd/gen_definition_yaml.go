@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/gen"
+	"github.com/TencentBlueKing/bk-apigateway-sdks/v2/gin_contrib/gen"
 	log "github.com/TencentBlueKing/blueapps-go/pkg/logging"
 	"github.com/TencentBlueKing/blueapps-go/pkg/utils/envx"
 	"github.com/spf13/cobra"

@@ -1,4 +1,7 @@
 {
   "project_name": "the_project_name_and_app_code_of_plugin_saas",
-  "init_admin": "the_init_admin"
+  "init_admin": "the_init_admin",
+  "_copy_without_render": [
+    "docs/docs.go"
+  ]
 }

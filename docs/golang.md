@@ -88,11 +88,6 @@ func GetApiConfig(cfg *SvcConfig) *model.APIConfig {
 
 // GetGatewayConfig ... 获取网关配置
 func GetGatewayConfig(cfg *SvcConfig) model.GatewayConfig {
-	// BK_APIGW_IS_OFFICIAL is True, the BK_APIGW_NAME should be start with `bk-`
-	apiType := "10"
-	if cast.ToBool(envx.Get("BK_APIGW_IS_OFFICIAL", "False")) {
-		apiType = "1"
-	}
 	return model.GatewayConfig{
 		// 网关名称
 		Description: fmt.Sprintf("这是应用%s 的 API 网关。由网关开发框架自动注册.", cfg.Platform.AppID),
@@ -102,7 +97,8 @@ func GetGatewayConfig(cfg *SvcConfig) model.GatewayConfig {
 			cfg.Platform.AppID),
 		// 网关是否公开
 		IsPublic: cast.ToBool(envx.Get("BK_APIGW_IS_PUBLIC", "true")),
-		APIType:  apiType,
+		// BK_APIGW_IS_OFFICIAL 为 True 时是官方网关，名称需要以 bk- 开头
+		IsOfficial: cast.ToBool(envx.Get("BK_APIGW_IS_OFFICIAL", "False")),
 		// 网关管理员
 		Maintainers: utils.GetEnvList("BK_APIGW_MAINTAINERS", []string{"admin"}),
 	}
@@ -178,6 +174,8 @@ func GetStageConfig(cfg *SvcConfig) *model.StageConfig {
 				TargetAppCodes: []string{"app1"},
 				// 是否开启 OAuth2 公开客户端模式，开启后将对 bk_app_code=public 的应用授权，默认不开启
 				// Oauth2PublicClientEnabled: false,
+				// 是否开启 OAuth2 个人客户端模式，开启后将对 bk_app_code=personal 的应用授权，默认不开启
+				// Oauth2PersonalClientEnabled: false,
 				// 是否返回原始响应，开启后 mcp-proxy 将直接返回 API 响应结果，不添加 request_id 等额外信息，默认不开启
 				// RawResponseEnabled: false,
 				// MCP Server 分类名称列表，不传则不更新分类
@@ -262,6 +260,7 @@ MCP Server 配置字段说明：
 | `protocol_type` | string | 否 | MCP 协议类型：`sse`（默认）、`streamable_http` |
 | `target_app_codes` | array[string] | 否 | 主动授权的应用列表 |
 | `oauth2_public_client_enabled` | bool | 否 | 是否开启 OAuth2 公开客户端模式，开启后将对 `bk_app_code=public` 的应用进行授权，默认不开启 |
+| `oauth2_personal_client_enabled` | bool | 否 | 是否开启 OAuth2 个人客户端模式，开启后将对 `bk_app_code=personal` 的应用进行授权，默认不开启 |
 | `raw_response_enabled` | bool | 否 | 是否返回原始响应，开启后 mcp-proxy 将直接返回 API 响应结果，不添加 request_id 等额外信息，默认不开启 |
 | `category_names` | array[string] | 否 | MCP Server 分类名称列表，不传则不更新分类 |
 
