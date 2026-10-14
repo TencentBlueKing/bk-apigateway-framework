@@ -21,8 +21,8 @@ func NewGenResourceYamlCmd() *cobra.Command {
 	var cfgFile string
 	var docsDir string
 	migrateCmd := cobra.Command{
-		Use:   "gen_resources_yaml",
-		Short: "generate definition.yaml ",
+		Use:   "generate_resources_yaml",
+		Short: "generate resources.yaml",
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := context.Background()
 			// 加载配置
@@ -32,7 +32,6 @@ func NewGenResourceYamlCmd() *cobra.Command {
 			}
 			engine := router.New(log.GetLogger("gin"))
 			docPath := docsDir + "/swagger.json"
-			// 资源的后端路径需要带上应用部署的子路径，如 /stag--default--{app_code}
 			subPath := config.GetStageConfig(cfg).BackendSubPath
 			yaml := gen.GenResourceYamlFromSwaggerJson(docPath, engine, subPath)
 			log.Infof(ctx, "gen resource yaml success:\n %s", yaml)

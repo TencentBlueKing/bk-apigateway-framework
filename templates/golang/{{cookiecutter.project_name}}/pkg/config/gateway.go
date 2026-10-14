@@ -52,7 +52,7 @@ func GetGatewayConfig(cfg *SvcConfig) model.GatewayConfig {
 		// 网关是否公开
 		IsPublic: cast.ToBool(envx.Get("BK_APIGW_IS_PUBLIC", "true")),
 		// BK_APIGW_IS_OFFICIAL 为 True 时是官方网关，名称需要以 bk- 开头
-		IsOfficial: cast.ToBool(envx.Get("BK_APIGW_IS_OFFICIAL", "False")),
+		IsOfficial: envx.GetBool("BK_APIGW_IS_OFFICIAL"),
 		// 网关管理员
 		Maintainers: utils.GetEnvList("BK_APIGW_MAINTAINERS", []string{"admin"}),
 	}
@@ -104,7 +104,7 @@ func GetStageConfig(cfg *SvcConfig) *model.StageConfig {
 		PluginConfigs: []*model.PluginConfig{
 			stageHeaderRewritePlugin,
 		},
-		EnableMcpServers: cast.ToBool(envx.Get("BK_APIGW_STAGE_ENABLE_MCP_SERVERS", "false")),
+		EnableMcpServers: envx.GetBool("BK_APIGW_STAGE_ENABLE_MCP_SERVERS"),
 	}
 
 	// 设置 mcp server 配置
@@ -147,7 +147,7 @@ func GetReleaseConfig(cfg *SvcConfig) model.ReleaseConfig {
 		// 版本号: v1.0.0+prod
 		Version: fmt.Sprintf("%s+%s",
 			envx.Get("BK_APIGW_RELEASE_VERSION", "1.0.0"),
-			envx.MustGet("BKPAAS_ENVIRONMENT"),
+			envx.Get("BKPAAS_ENVIRONMENT", "prod"),
 		),
 		// 版本日志
 		Comment: envx.Get("BK_APIGW_RELEASE_COMMENT", ""),

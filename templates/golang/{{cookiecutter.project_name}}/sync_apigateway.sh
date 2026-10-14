@@ -5,7 +5,7 @@ echo "do migrate"
 
 echo "[Sync] BEGIN ====================="
 echo "[Sync] generate definition.yaml"
-{{cookiecutter.project_name}} gen_definition_yaml
+{{cookiecutter.project_name}} generate_definition_yaml
 if [ $? -ne 0 ]
 then
 	echo "run generate_definition_yaml fail, please run this command on your development env to find out the reason"
@@ -22,7 +22,7 @@ fi
 
 
 echo "[Sync] generate resources.yaml"
-{{cookiecutter.project_name}} gen_resources_yaml
+{{cookiecutter.project_name}} generate_resources_yaml
 if [ $? -ne 0 ]
 then
 	echo "run generate_resources_yaml fail, please run this command on your development env to find out the reason"

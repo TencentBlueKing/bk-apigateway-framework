@@ -21,8 +21,8 @@ func NewGenDefinitionYamlCmd() *cobra.Command {
 	var cfgFile string
 	var docsDir string
 	migrateCmd := cobra.Command{
-		Use:   "gen_definition_yaml",
-		Short: "generate definition.yaml ",
+		Use:   "generate_definition_yaml",
+		Short: "generate definition.yaml",
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := context.Background()
 			// 加载配置
