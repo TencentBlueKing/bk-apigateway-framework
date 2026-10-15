@@ -1,5 +1,5 @@
 # -------------- builder container --------------
-FROM golang:1.24 as builder
+FROM golang:1.26 as builder
 
 WORKDIR /go/src/
 
@@ -28,7 +28,6 @@ WORKDIR /app
 
 COPY --from=builder /go/src/{{cookiecutter.project_name}} /usr/bin/{{cookiecutter.project_name}}
 
-COPY --from=builder /go/src/templates /app/templates
 COPY --from=builder /go/src/sync_apigateway.sh /app/sync_apigateway.sh
 # docs
 RUN mkdir -p /app/docs
@@ -36,14 +35,6 @@ RUN mkdir -p /app/docs
 COPY --from=builder /go/src/docs /app/docs
 
 ENV DOC_FILE_BASE_DIR=/app/docs
-
-# templates
-ENV TMPL_FILE_BASE_DIR=/app/templates
-
-COPY --from=builder /go/src/static /app/static
-
-# static files
-ENV STATIC_FILE_BASE_DIR=/app/static
 
 # logs
 RUN mkdir -p /app/v3logs

@@ -16,7 +16,7 @@ import (
 //	@Summary	查询user列表
 //	@Tags		user
 //	@Success	200	{object}	ginx.Response{data=[]serializer.UserListResponse}
-//	@Router		/api/Users [get]
+//	@Router		/api/users/list [get]
 func ListUsers(c *gin.Context) {
 	var req serializer.UserListRequest
 	if err := c.ShouldBindQuery(&req); err != nil {
@@ -35,7 +35,7 @@ func ListUsers(c *gin.Context) {
 //	@Tags		user
 //	@Param		body	body		serializer.UserCreateRequest	true	"创建用户请求体"
 //	@Success	201		{object}	ginx.Response{data=nil}
-//	@Router		/api/Users [post]
+//	@Router		/api/users [post]
 func CreateUser(c *gin.Context) {
 	var req serializer.UserCreateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

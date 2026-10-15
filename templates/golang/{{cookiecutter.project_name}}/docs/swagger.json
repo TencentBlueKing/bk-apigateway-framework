@@ -7,37 +7,7 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/Users": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "查询user列表",
-                "operationId": "list_users",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/ginx.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/definitions/serializer.UserListResponse"
-                                            }
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
+        "/api/users": {
             "post": {
                 "tags": [
                     "user"
@@ -68,6 +38,38 @@
                                     "properties": {
                                         "data": {
                                             "type": "object"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/list": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "查询user列表",
+                "operationId": "list_users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/ginx.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/serializer.UserListResponse"
+                                            }
                                         }
                                     }
                                 }

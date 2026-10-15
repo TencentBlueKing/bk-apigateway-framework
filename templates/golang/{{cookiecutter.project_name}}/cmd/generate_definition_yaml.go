@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/gen"
+	"github.com/TencentBlueKing/bk-apigateway-sdks/v2/gin_contrib/gen"
 	log "github.com/TencentBlueKing/blueapps-go/pkg/logging"
 	"github.com/TencentBlueKing/blueapps-go/pkg/utils/envx"
 	"github.com/spf13/cobra"
@@ -21,8 +21,8 @@ func NewGenDefinitionYamlCmd() *cobra.Command {
 	var cfgFile string
 	var docsDir string
 	migrateCmd := cobra.Command{
-		Use:   "gen_definition_yaml",
-		Short: "generate definition.yaml ",
+		Use:   "generate_definition_yaml",
+		Short: "generate definition.yaml",
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := context.Background()
 			// 加载配置

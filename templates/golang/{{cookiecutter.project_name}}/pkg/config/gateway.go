@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/model"
+	"github.com/TencentBlueKing/bk-apigateway-sdks/v2/gin_contrib/model"
 	"github.com/spf13/cast"
 
 	"github.com/TencentBlueKing/blueapps-go/pkg/utils/envx"
@@ -31,7 +31,7 @@ func GetApiConfig(cfg *SvcConfig) *model.APIConfig {
 		ResourceDocs: model.ResourceDocConfig{
 			// 在项目 docs目录下，通过 markdown文档自动化导入中英文文档;
 			// 注意markdown文件名必须等于接口的 operation_id; 见 demo 示例
-			BaseDir: envx.Get("BK_APIGW_RELEASE_DOC_LANGUAGE", ""),
+			BaseDir: envx.Get("BK_APIGW_RESOURCE_DOCS_BASE_DIR", ""),
 			// 通过swagger生成资源文档语言:zh/en, 如果配置了BK_APIGW_RESOURCE_DOCS_BASE_DIR（使用自定义文档）
 			// 那么必须将这个变量置空
 			Language: envx.Get("BK_APIGW_RELEASE_DOC_LANGUAGE", ""),
@@ -42,11 +42,6 @@ func GetApiConfig(cfg *SvcConfig) *model.APIConfig {
 
 // GetGatewayConfig ... 获取网关配置
 func GetGatewayConfig(cfg *SvcConfig) model.GatewayConfig {
-	// BK_APIGW_IS_OFFICIAL is True, the BK_APIGW_NAME should be start with `bk-`
-	apiType := "10"
-	if cast.ToBool(envx.Get("BK_APIGW_IS_OFFICIAL", "False")) {
-		apiType = "1"
-	}
 	return model.GatewayConfig{
 		// 网关名称
 		Description: fmt.Sprintf("这是应用%s 的 API 网关。由网关开发框架自动注册.", cfg.Platform.AppID),
@@ -56,7 +51,8 @@ func GetGatewayConfig(cfg *SvcConfig) model.GatewayConfig {
 			cfg.Platform.AppID),
 		// 网关是否公开
 		IsPublic: cast.ToBool(envx.Get("BK_APIGW_IS_PUBLIC", "true")),
-		APIType:  apiType,
+		// BK_APIGW_IS_OFFICIAL 为 True 时是官方网关，名称需要以 bk- 开头
+		IsOfficial: envx.GetBool("BK_APIGW_IS_OFFICIAL"),
 		// 网关管理员
 		Maintainers: utils.GetEnvList("BK_APIGW_MAINTAINERS", []string{"admin"}),
 	}
@@ -108,7 +104,7 @@ func GetStageConfig(cfg *SvcConfig) *model.StageConfig {
 		PluginConfigs: []*model.PluginConfig{
 			stageHeaderRewritePlugin,
 		},
-		EnableMcpServers: cast.ToBool(envx.Get("BK_APIGW_STAGE_ENABLE_MCP_SERVERS", "false")),
+		EnableMcpServers: envx.GetBool("BK_APIGW_STAGE_ENABLE_MCP_SERVERS"),
 	}
 
 	// 设置 mcp server 配置
@@ -132,6 +128,8 @@ func GetStageConfig(cfg *SvcConfig) *model.StageConfig {
 				TargetAppCodes: []string{"app1"},
 				// 是否开启 OAuth2 公开客户端模式，开启后将对 bk_app_code=public 的应用授权，默认不开启
 				// Oauth2PublicClientEnabled: false,
+				// 是否开启 OAuth2 个人客户端模式，开启后将对 bk_app_code=personal 的应用授权，默认不开启
+				// Oauth2PersonalClientEnabled: false,
 				// 是否返回原始响应，开启后 mcp-proxy 将直接返回 API 响应结果，不添加 request_id 等额外信息，默认不开启
 				// RawResponseEnabled: false,
 				// MCP Server 分类名称列表，不传则不更新分类
@@ -149,7 +147,7 @@ func GetReleaseConfig(cfg *SvcConfig) model.ReleaseConfig {
 		// 版本号: v1.0.0+prod
 		Version: fmt.Sprintf("%s+%s",
 			envx.Get("BK_APIGW_RELEASE_VERSION", "1.0.0"),
-			envx.MustGet("BKPAAS_ENVIRONMENT"),
+			envx.Get("BKPAAS_ENVIRONMENT", "prod"),
 		),
 		// 版本日志
 		Comment: envx.Get("BK_APIGW_RELEASE_COMMENT", ""),

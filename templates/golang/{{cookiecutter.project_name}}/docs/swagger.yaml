@@ -33,24 +33,7 @@ info:
   title: BkApp API DOC
   version: 1.0.0
 paths:
-  /api/Users:
-    get:
-      operationId: list_users
-      responses:
-        "200":
-          description: OK
-          schema:
-            allOf:
-            - $ref: '#/definitions/ginx.Response'
-            - properties:
-                data:
-                  items:
-                    $ref: '#/definitions/serializer.UserListResponse'
-                  type: array
-              type: object
-      summary: 查询user列表
-      tags:
-      - user
+  /api/users:
     post:
       operationId: create_user
       parameters:
@@ -71,6 +54,24 @@ paths:
                   type: object
               type: object
       summary: 新增用户
+      tags:
+      - user
+  /api/users/list:
+    get:
+      operationId: list_users
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/serializer.UserListResponse'
+                  type: array
+              type: object
+      summary: 查询user列表
       tags:
       - user
 swagger: "2.0"

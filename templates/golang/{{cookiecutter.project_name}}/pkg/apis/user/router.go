@@ -2,11 +2,11 @@
 package user
 
 import (
-	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/middleware"
-	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/util"
+	"github.com/TencentBlueKing/bk-apigateway-sdks/v2/gin_contrib/middleware"
+	"github.com/TencentBlueKing/bk-apigateway-sdks/v2/gin_contrib/util"
 	"github.com/gin-gonic/gin"
 
-	"github.com/TencentBlueKing/bk-apigateway-sdks/gin_contrib/model"
+	"github.com/TencentBlueKing/bk-apigateway-sdks/v2/gin_contrib/model"
 
 	"github.com/TencentBlueKing/{{cookiecutter.project_name}}/pkg/apis/user/handler"
 )
@@ -22,7 +22,7 @@ func Register(rg *gin.RouterGroup) {
 	basicConfig := model.ResourceBasicConfig{
 		IsPublic:             true,
 		AllowApplyPermission: true,
-		MatchSubpath:         true,
+		MatchSubpath:         false,
 		EnableWebsocket:      false,
 	}
 
@@ -56,7 +56,6 @@ func Register(rg *gin.RouterGroup) {
 			basicConfig.WithPluginConfig(headerWriterPlugin),
 			basicConfig.WithBackend(model.BackendConfig{
 				Timeout: 10,
-				Path:    "/api/v1/users",
 			}),
 			// 开启mcp
 			basicConfig.WithMcpEnable(true),
