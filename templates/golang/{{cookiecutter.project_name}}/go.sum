@@ -8,8 +8,8 @@ github.com/Masterminds/semver/v3 v3.4.0 h1:Zog+i5UMtVoCU8oKka5P7i9q9HgrJeGzI9SA1
 github.com/Masterminds/semver/v3 v3.4.0/go.mod h1:4V+yj/TJE1HU9XfppCwVMZq3I84lprf4nC11bSS5beM=
 github.com/Masterminds/sprig/v3 v3.2.3 h1:eL2fZNezLomi0uOLqjQoN6BfsDD+fyLtgbJMAj9n6YA=
 github.com/Masterminds/sprig/v3 v3.2.3/go.mod h1:rXcFaZ2zZbLRJv/xSysmlgIM1u11eBaRMhvYXJNkGuM=
-github.com/TencentBlueKing/bk-apigateway-sdks/v2 v2.0.1 h1:qpnjGxQYG1pyyae1JbdNMhum1bB4NfIgdyFLnH4iKRo=
-github.com/TencentBlueKing/bk-apigateway-sdks/v2 v2.0.1/go.mod h1:j+8VNmJRuX4th+16+u0sk+HyhM+LR4mtntXyTsHGpf4=
+github.com/TencentBlueKing/bk-apigateway-sdks/v2 v2.0.2 h1:gt0i2l9ixq+BfM1scGMKIpzUTPnFjnApo34kvrKnpdg=
+github.com/TencentBlueKing/bk-apigateway-sdks/v2 v2.0.2/go.mod h1:j+8VNmJRuX4th+16+u0sk+HyhM+LR4mtntXyTsHGpf4=
 github.com/TencentBlueKing/blueapps-go v1.6.2 h1:qA1cCjHS7lJsvDqpKJ6PyPeQXnOhcJpBuu+1AWpLkV4=
 github.com/TencentBlueKing/blueapps-go v1.6.2/go.mod h1:llbTnc2z/Je6YncDz6uXw+SI5XI2XgoPymGr2TTQGuc=
 github.com/TencentBlueKing/gopkg v1.3.0 h1:WQbhfW87O8y0EW+DjvsDZ/3Z8Hfxg2pbD2KDD7OK0is=
