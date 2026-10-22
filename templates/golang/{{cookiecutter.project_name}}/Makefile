@@ -9,9 +9,9 @@ endif
 GITCOMMIT=$(shell git rev-parse HEAD 2>/dev/null || echo "--")
 BUILDTIME=${shell date +%Y-%m-%dT%H:%M:%S%z}
 
-LDFLAGS="-X bk.tencent.com/{{cookiecutter.project_name}}/pkg/version.AppVersion=${VERSION} \
-	-X bk.tencent.com/{{cookiecutter.project_name}}/pkg/version.GitCommit=${GITCOMMIT} \
-	-X bk.tencent.com/{{cookiecutter.project_name}}/pkg/version.BuildTime=${BUILDTIME}"
+LDFLAGS="-X github.com/TencentBlueKing/blueapps-go/pkg/version.AppVersion=${VERSION} \
+	-X github.com/TencentBlueKing/blueapps-go/pkg/version.GitCommit=${GITCOMMIT} \
+	-X github.com/TencentBlueKing/blueapps-go/pkg/version.BuildTime=${BUILDTIME}"
 
 # go mod tidy
 tidy:

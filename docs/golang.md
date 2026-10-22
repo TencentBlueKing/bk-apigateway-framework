@@ -74,7 +74,7 @@ func GetApiConfig(cfg *SvcConfig) *model.APIConfig {
 			GatewayApps: []string{"app1"},
 			// 资源维度
 			ResourceApps: map[string][]string{
-				"app1": {"get_category_by_id"},
+				"app1": {"list_users"},
 			},
 		},
 		RelatedApps: []string{cfg.Platform.AppID},
@@ -239,9 +239,9 @@ func GetReleaseConfig(cfg *SvcConfig) model.ReleaseConfig {
 			}),
 			// 设置资源名称，不设置则自动生成
 			basicConfig.WithOperationID("resource_name"),
-			// 开启 MCP；无请求参数的接口还需设置 WithNonSchema(true)
+			// 开启 MCP；无请求参数的接口还需设置 WithNoneSchema(true)
 			// basicConfig.WithMcpEnable(true),
-			// basicConfig.WithNonSchema(true),
+			// basicConfig.WithNoneSchema(true),
 			// 设置 plugin
 			basicConfig.WithPluginConfig(headerWriterPlugin)),
 		handler.ListUsers,

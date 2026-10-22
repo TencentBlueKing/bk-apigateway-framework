@@ -60,16 +60,6 @@ modules:
               periodSeconds: 5
               successThreshold: 1
               failureThreshold: 3
-#        - name: scheduler
-#          # scheduler 非单实例可能导致定时任务重复执行！
-#          replicas: 1
-#          resQuotaPlan: default
-#          command:
-#            - {{cookiecutter.project_name}}
-#            - scheduler
-          # args:
-          #   - --conf
-          #   - /app/config.yaml
       addons:
         - name: mysql
       observability:

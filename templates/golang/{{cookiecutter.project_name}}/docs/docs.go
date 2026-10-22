@@ -45,7 +45,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "type": "object"
+                                            "$ref": "#/definitions/serializer.UserCreateResponse"
                                         }
                                     }
                                 }
@@ -111,6 +111,14 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 32,
                     "minLength": 1
+                }
+            }
+        },
+        "serializer.UserCreateResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
                 }
             }
         },

@@ -34,7 +34,7 @@ func ListUsers(c *gin.Context) {
 //	@Summary	新增用户
 //	@Tags		user
 //	@Param		body	body		serializer.UserCreateRequest	true	"创建用户请求体"
-//	@Success	201		{object}	ginx.Response{data=nil}
+//	@Success	201		{object}	ginx.Response{data=serializer.UserCreateResponse}
 //	@Router		/api/users [post]
 func CreateUser(c *gin.Context) {
 	var req serializer.UserCreateRequest
