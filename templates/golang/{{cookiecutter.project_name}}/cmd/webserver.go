@@ -8,6 +8,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/TencentBlueKing/blueapps-go/pkg/infras/database"
+	"github.com/TencentBlueKing/blueapps-go/pkg/infras/redis"
 	"github.com/TencentBlueKing/blueapps-go/pkg/logging"
 	"github.com/spf13/cobra"
 
@@ -29,6 +31,8 @@ func NewWebServerCmd() *cobra.Command {
 			if err != nil {
 				logging.Fatalf("failed to load config: %s", err)
 			}
+			// 初始化增强服务客户端
+			initAddons(ctx, cfg)
 
 			// 启动 Web 服务
 			logging.Infof(ctx, "Starting server at http://0.0.0.0:%d", config.G.Service.Server.Port)
@@ -63,6 +67,20 @@ func NewWebServerCmd() *cobra.Command {
 	wsCmd.Flags().StringVar(&cfgFile, "conf", "", "config file")
 
 	return &wsCmd
+}
+
+// 根据增强服务配置，初始化各类客户端
+// 注意：/healthz 会探测已配置的增强服务，因此配置了的增强服务必须在此初始化客户端
+func initAddons(ctx context.Context, cfg *config.SvcConfig) {
+	// 初始化 DB Client
+	if cfg.Platform.Addons.Mysql != nil {
+		database.InitDBClient(ctx, cfg.Platform.Addons.Mysql, logging.GetLogger("gorm"))
+	}
+
+	// 初始化 Redis Client
+	if cfg.Platform.Addons.Redis != nil {
+		redis.InitRedisClient(ctx, cfg.Platform.Addons.Redis)
+	}
 }
 
 func init() {
