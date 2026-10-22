@@ -42,6 +42,10 @@ export BKPAAS_APP_SECRET=358622d8-d3e7-4522-8f16-b5530776bbb8
 export BKPAAS_DEFAULT_PREALLOCATED_URLS='{"dev": "http://0.0.0.0:8080/"}'
 export BKPAAS_ENVIRONMENT=dev
 export BKPAAS_PROCESS_TYPE=web
+# webserver 监听端口，默认 5000
+export PORT=8080
+# webserver 提供 /swagger.json 的目录
+export API_DOC_FILE_BASE_DIR=./docs
 ```
 
 之后启动命令
@@ -70,7 +74,7 @@ func GetApiConfig(cfg *SvcConfig) *model.APIConfig {
 			GatewayApps: []string{"app1"},
 			// 资源维度
 			ResourceApps: map[string][]string{
-				"app1": {"get_category_by_id"},
+				"app1": {"list_users"},
 			},
 		},
 		RelatedApps: []string{cfg.Platform.AppID},
@@ -235,9 +239,9 @@ func GetReleaseConfig(cfg *SvcConfig) model.ReleaseConfig {
 			}),
 			// 设置资源名称，不设置则自动生成
 			basicConfig.WithOperationID("resource_name"),
-			// 开启 MCP；无请求参数的接口还需设置 WithNonSchema(true)
+			// 开启 MCP；无请求参数的接口还需设置 WithNoneSchema(true)
 			// basicConfig.WithMcpEnable(true),
-			// basicConfig.WithNonSchema(true),
+			// basicConfig.WithNoneSchema(true),
 			// 设置 plugin
 			basicConfig.WithPluginConfig(headerWriterPlugin)),
 		handler.ListUsers,

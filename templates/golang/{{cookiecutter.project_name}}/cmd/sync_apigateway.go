@@ -37,7 +37,7 @@ func NewSyncApigatewayCmd() *cobra.Command {
 	// 配置文件路径，如果未指定，会从环境变量读取各项配置
 	// 注意：目前平台未默认提供配置文件，需通过 `模块配置 - 挂载卷` 添加
 	migrateCmd.Flags().StringVar(&cfgFile, "conf", "", "config file")
-	migrateCmd.Flags().StringVar(&docsDir, "docs", envx.Get("DOC_FILE_BASE_DIR", "../"),
+	migrateCmd.Flags().StringVar(&docsDir, "docs", envx.Get("DOC_FILE_BASE_DIR", "./docs"),
 		"swagger json docs dir")
 	return &migrateCmd
 }

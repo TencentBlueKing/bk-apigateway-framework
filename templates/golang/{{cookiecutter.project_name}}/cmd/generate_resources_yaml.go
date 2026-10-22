@@ -31,11 +31,18 @@ func NewGenResourceYamlCmd() *cobra.Command {
 				log.Fatalf("failed to load config: %s", err)
 			}
 			engine := router.New(log.GetLogger("gin"))
+
+			// 校验输出目录，防止路径遍历导致任意文件写入
+			outputDir := utils.GetParentDir(docsDir)
+			if err = utils.EnsureWithinWorkDir(outputDir); err != nil {
+				log.Fatalf("invalid docs dir %q: %s", docsDir, err)
+			}
+
 			docPath := docsDir + "/swagger.json"
 			subPath := config.GetStageConfig(cfg).BackendSubPath
 			yaml := gen.GenResourceYamlFromSwaggerJson(docPath, engine, subPath)
 			log.Infof(ctx, "gen resource yaml success:\n %s", yaml)
-			resourcesFilePath := filepath.Join(utils.GetParentDir(docsDir), "resources.yaml")
+			resourcesFilePath := filepath.Join(outputDir, "resources.yaml")
 			// 生成资源配置yaml文件
 			err = os.WriteFile(resourcesFilePath, []byte(yaml), 0o644)
 			if err != nil {

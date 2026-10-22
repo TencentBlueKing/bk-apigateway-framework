@@ -24,7 +24,7 @@ func GetApiConfig(cfg *SvcConfig) *model.APIConfig {
 			GatewayApps: []string{"app1"},
 			// 资源维度
 			ResourceApps: map[string][]string{
-				"app1": {"get_category_by_id"},
+				"app1": {"list_users"},
 			},
 		},
 		RelatedApps: []string{cfg.Platform.AppID},

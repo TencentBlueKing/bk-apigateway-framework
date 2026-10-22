@@ -32,7 +32,7 @@ func New(slogger *slog.Logger) *gin.Engine {
 	// 后端 API
 	{
 		apiRG := router.Group("/api")
-		// CRUD
+		// 用户示例 API
 		user.Register(apiRG)
 	}
 

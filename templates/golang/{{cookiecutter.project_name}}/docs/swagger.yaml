@@ -16,6 +16,11 @@ definitions:
     required:
     - name
     type: object
+  serializer.UserCreateResponse:
+    properties:
+      id:
+        type: integer
+    type: object
   serializer.UserListResponse:
     properties:
       id:
@@ -51,7 +56,7 @@ paths:
             - $ref: '#/definitions/ginx.Response'
             - properties:
                 data:
-                  type: object
+                  $ref: '#/definitions/serializer.UserCreateResponse'
               type: object
       summary: 新增用户
       tags:

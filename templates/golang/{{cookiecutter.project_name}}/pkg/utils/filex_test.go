@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"os"
 	"path/filepath"
 	"testing"
 )
@@ -62,6 +63,42 @@ func TestGetParentDir(t *testing.T) {
 			if parent := filepath.Dir(cleaned); parent != got {
 				t.Errorf("内部验证失败！\n清理后路径: %s\nDir结果: %s\n函数结果: %s",
 					cleaned, parent, got)
+			}
+		})
+	}
+}
+
+func TestEnsureWithinDir(t *testing.T) {
+	base := t.TempDir()
+	outside := t.TempDir()
+	for _, dir := range []string{"docs", "..docs"} {
+		if err := os.Mkdir(filepath.Join(base, dir), 0o755); err != nil {
+			t.Fatal(err)
+		}
+	}
+	// symlink inside base dir pointing outside
+	if err := os.Symlink(outside, filepath.Join(base, "link")); err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		name    string
+		target  string
+		wantErr bool
+	}{
+		{name: "base dir itself", target: base},
+		{name: "sub dir", target: filepath.Join(base, "docs")},
+		{name: "sub dir starting with double dots", target: filepath.Join(base, "..docs")},
+		{name: "parent dir", target: filepath.Join(base, ".."), wantErr: true},
+		{name: "absolute path outside", target: outside, wantErr: true},
+		{name: "symlink pointing outside", target: filepath.Join(base, "link"), wantErr: true},
+		{name: "non-existent path", target: filepath.Join(base, "not-exist"), wantErr: true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := EnsureWithinDir(base, tt.target)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("EnsureWithinDir(%q) error = %v, wantErr %v", tt.target, err, tt.wantErr)
 			}
 		})
 	}

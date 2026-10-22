@@ -1,7 +1,5 @@
 #!/bin/bash
 # DO NOT MODIFY THIS SECTION !!!
-echo "do migrate"
-{{cookiecutter.project_name}} migrate
 
 echo "[Sync] BEGIN ====================="
 echo "[Sync] generate definition.yaml"

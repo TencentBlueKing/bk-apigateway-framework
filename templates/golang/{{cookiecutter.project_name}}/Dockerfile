@@ -34,7 +34,10 @@ RUN mkdir -p /app/docs
 
 COPY --from=builder /go/src/docs /app/docs
 
+# DOC_FILE_BASE_DIR：generate_*_yaml / sync_apigateway 命令读取 swagger.json 的目录
 ENV DOC_FILE_BASE_DIR=/app/docs
+# API_DOC_FILE_BASE_DIR：webserver 提供 /swagger.json 的目录（blueapps-go 配置项）
+ENV API_DOC_FILE_BASE_DIR=/app/docs
 
 # logs
 RUN mkdir -p /app/v3logs
