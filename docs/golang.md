@@ -42,6 +42,10 @@ export BKPAAS_APP_SECRET=358622d8-d3e7-4522-8f16-b5530776bbb8
 export BKPAAS_DEFAULT_PREALLOCATED_URLS='{"dev": "http://0.0.0.0:8080/"}'
 export BKPAAS_ENVIRONMENT=dev
 export BKPAAS_PROCESS_TYPE=web
+# webserver 监听端口，默认 5000
+export PORT=8080
+# webserver 提供 /swagger.json 的目录
+export API_DOC_FILE_BASE_DIR=./docs
 ```
 
 之后启动命令
