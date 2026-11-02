@@ -1,0 +1,29 @@
+{
+  "skill_name": "bk-apigateway-framework-patch",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "In bk-apigateway-framework, create demo_go2 from templates/golang, use the same Go env as demo_go, run make build, then confirm the newest template still resolves OTel and grpc at the patched versions.",
+      "expected_output": "Uses bk-apigateway-framework-patch, renders a fresh Go project through cookiecutter, sources the reference .envrc, uses GOTOOLCHAIN=local when preserving Go 1.24, runs the generated project's make build, checks resolved module versions, and reports exact commands and results.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "We upgraded dependencies in demo_go. Feed the go.mod/go.sum changes back to templates/golang/{{cookiecutter.project_name}}, keep the cookiecutter module placeholder, then render a new project and run make vet and make test.",
+      "expected_output": "Uses bk-apigateway-framework-patch, compares generated and template module files, patches only the template dependency metadata while preserving {{cookiecutter.project_name}}, renders a fresh project with cookiecutter, and verifies it with the generated project's Makefile under the correct Go env.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Render a project from templates/python, add a small config file to the generated project, patch that new file back into the python cookiecutter template with the right project variables, and prove a fresh render includes it.",
+      "expected_output": "Uses bk-apigateway-framework-patch for the Python template path, reads cookiecutter.json, renders a concrete Python project, makes the requested file change, maps generated values back to cookiecutter variables in templates/python, renders again, and runs the documented Python template checks if available.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "In demo_go, change one handler response string for local testing only. Do not update any template.",
+      "expected_output": "Does not use bk-apigateway-framework-patch because the user explicitly says not to update templates. It treats the request as an ordinary generated-project edit and keeps templates/golang untouched.",
+      "files": []
+    }
+  ]
+}
